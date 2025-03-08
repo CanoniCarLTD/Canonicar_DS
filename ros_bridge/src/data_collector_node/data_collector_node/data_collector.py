@@ -12,6 +12,7 @@ from std_msgs.msg import Float32MultiArray
 from message_filters import ApproximateTimeSynchronizer, Subscriber
 from ament_index_python.packages import get_package_share_directory
 
+
 class DataCollector(Node):
     def __init__(self):
         super().__init__('data_collector')
@@ -19,17 +20,21 @@ class DataCollector(Node):
             self.prev_gnss = None  # Store previous GNSS position for velocity calculation
             self.prev_time = None  # Store timestamp
             self.speed_records = []  # Store speed values for average calculation
-            
+
         except Exception as e:
             self.get_logger().error(f"Error connecting to CARLA server: {e}")
             return
 
         self.data_buffer = []  # List to store synchronized data
-        
+
         # TODO different cars have different frontal areas, need to adjust per vehicle.
-        self.frontal_area = 2.2  # Default estimated frontal area in m² (can be adjusted)        
+        self.frontal_area = 2.2  # Default estimated frontal area in m² (can be adjusted)
         self.fuel_consumption = 0.0  # Total fuel consumption in liters
-        
+
+        self.throttle_sum = 0.0
+        self.brake_sum = 0.0
+        self.steering_sum = 0.0
+
         self.setup_subscribers()
         self.get_logger().info("DataCollector Node initialized.")
 
@@ -41,12 +46,11 @@ class DataCollector(Node):
         self.gnss_sub = Subscriber(self, NavSatFix, "/carla/gnss/gnss")
 
         self.physics_sub = Subscriber(self, Float32MultiArray, "/carla/vehicle/physics")
-
-        # self.physics_sub = self.create_subscription(Float32MultiArray, "/carla/vehicle/physics", self.update_vehicle_physics, 10)
+        self.controller_sub = Subscriber(self, Float32MultiArray, "/carla/vehicle/control")
 
         # Synchronizing IMU and GNSS Data
         self.ats = ApproximateTimeSynchronizer(
-            [self.imu_sub, self.gnss_sub,self.physics_sub],
+            [self.imu_sub, self.gnss_sub, self.physics_sub, self.controller_sub],
             queue_size=10,
             slop=0.05,
             allow_headerless=True  # Enables processing of messages without timestamps
@@ -54,30 +58,37 @@ class DataCollector(Node):
         self.ats.registerCallback(self.sync_callback)
         self.get_logger().info("Subscribers set up successfully.")
 
-    def sync_callback(self, imu_msg, gnss_msg,physics_msg):
-        self.get_logger().info("Synchronized callback triggered.")
+    def sync_callback(self, imu_msg, gnss_msg, physics_msg, controller_msg):
+        """Callback function for synchronized data."""
+        # self.get_logger().info("Synchronized callback triggered.")
         self.get_logger().info(f"The physics mass {physics_msg.data[0]}, drag coef {physics_msg.data[1]}.")
-        
-        processed_data = self.process_data(imu_msg, gnss_msg, physics_msg)
+
+        processed_data = self.process_data(imu_msg, gnss_msg, physics_msg, controller_msg)
         self.data_buffer.append(processed_data)
         self.get_logger().info("Data appended to buffer.")
+        self.get_logger().info(f'Latest data: {self.get_latest_data()}')
 
-    def process_data(self, imu_msg, gnss_msg, physics_msg):
-        # self.get_logger().info("Processing data...")
-        self.get_logger().info(f"average_speed: {self.get_average_speed()}")
-        self.get_logger().info(f"fuel consumpution: {self.get_total_fuel_consumption()}")
-        
-        return {
+    def process_data(self, imu_msg, gnss_msg, physics_msg, controller_msg):
+        """Process synchronized data and compute vehicle parameters."""
+        self.steering_sum += abs(controller_msg.data[0])
+        self.throttle_sum += abs(controller_msg.data[1])
+        self.brake_sum += abs(controller_msg.data[2])
+        data = {
             "imu": self.process_imu(imu_msg),
             "gnss": self.process_gnss(gnss_msg, physics_msg),
             "average_speed": self.get_average_speed(),
-            "fuel_consumption": self.get_total_fuel_consumption()
+            "fuel_consumption": self.get_total_fuel_consumption(),
+            "total_steering": self.steering_sum,
+            "total_throttle": self.throttle_sum,
+            "total_brake": self.brake_sum
         }
+        self.get_logger().info(f"Data:{data}")
+        return data
 
     def process_imu(self, imu_msg):
         """Process IMU data."""
-        self.get_logger().info("Processing IMU data...")
-        imu_data =  [
+        # self.get_logger().info("Processing IMU data...")
+        imu_data = [
             imu_msg.linear_acceleration.x,
             imu_msg.linear_acceleration.y,
             imu_msg.linear_acceleration.z,
@@ -86,7 +97,7 @@ class DataCollector(Node):
             imu_msg.angular_velocity.z
         ]
         return imu_data
-    
+
     def process_gnss(self, gnss_msg, physics_msg):
         """Process GNSS data and compute velocity."""
         latitude, longitude, altitude = gnss_msg.latitude, gnss_msg.longitude, gnss_msg.altitude
@@ -104,15 +115,14 @@ class DataCollector(Node):
             if delta_time > 0:
                 velocity = distance / delta_time  # Speed in m/s
                 km_per_hour = velocity * 3.6  # Convert to km/h
-                # self.speed_records.append(velocity)  # Store the computed speed
                 self.speed_records.append(km_per_hour)  # Store the computed speed
-                self.calculate_fuel_consumption(km_per_hour, delta_time, physics_msg.data[0], physics_msg.data[1])
+                self.calculate_fuel_consumption(velocity, delta_time, physics_msg.data[0], physics_msg.data[1])
 
         self.prev_gnss = (latitude, longitude)
         self.prev_time = self.get_clock().now()
 
         return np.array([latitude, longitude, altitude, velocity])
-    
+
     def get_average_speed(self):
         """Calculate the average speed from stored speed values."""
         if not self.speed_records:
@@ -127,11 +137,11 @@ class DataCollector(Node):
         # Compute aerodynamic drag power
         air_density = 1.225  # kg/m³
         aerodynamic_drag = 0.5 * air_density * drag_coefficient * self.frontal_area * (velocity ** 3)
-        
+
         # Compute rolling resistance (approximate)
         rolling_resistance_coefficient = 0.015
         rolling_resistance = rolling_resistance_coefficient * mass * 9.81 * velocity
-        
+
         # Total power required
         total_power = aerodynamic_drag + rolling_resistance
 
@@ -162,6 +172,7 @@ def main(args=None):
     finally:
         node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

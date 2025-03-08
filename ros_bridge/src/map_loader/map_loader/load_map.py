@@ -8,6 +8,7 @@ import open3d as o3d
 import os
 import xml.etree.ElementTree as ET
 
+
 class LoadMapNode(Node):
     def __init__(self):
         super().__init__('load_map_node')
@@ -46,16 +47,16 @@ class LoadMapNode(Node):
             with open(self.TRACK_XODR, "r") as f:
                 opendrive_data = f.read()
             self.get_logger().info("Raw OpenDRIVE data loaded (length: {})".format(len(opendrive_data)))
-            
+
             opendrive_params = carla.OpendriveGenerationParameters(
                 vertex_distance=0.5,
                 max_road_length=25.0,        # Increased from 5.0 for more continuous segments
-                wall_height=1.0,             
+                wall_height=0.0,
                 additional_width=1.0,        # Wider road for better vehicle stability
                 smooth_junctions=True,
                 enable_mesh_visibility=True,
             )
-            
+
             self.get_logger().info(f"Using improved OpenDRIVE generation parameters")
             self.client.generate_opendrive_world(opendrive_data, opendrive_params)
             self.world = self.client.get_world()
@@ -68,7 +69,7 @@ class LoadMapNode(Node):
 
             # Visualize waypoints with better information
             self.visualize_track()
-            
+
             self.get_logger().info("Map setup complete.")
 
         except Exception as e:
@@ -77,8 +78,8 @@ class LoadMapNode(Node):
 
     def visualize_track(self):
         """Create detailed track visualization with waypoint information"""
-        waypoints = self.map.generate_waypoints(1.0)  # Get waypoints every 1 meter
-        
+        waypoints = self.map.generate_waypoints(2.0)  # Get waypoints every 1 meter
+
         # Draw all waypoints
         for wp in waypoints:
             # Draw point for each waypoint
@@ -88,14 +89,13 @@ class LoadMapNode(Node):
                 color=carla.Color(0, 0, 255),  # Blue for regular waypoints
                 life_time=0.0  # Persistent
             )
-            
-        
+
         # Find and mark the endpoints - find waypoints with extreme s values
         s_values = [(wp.s, wp) for wp in waypoints if wp.road_id == 1]
         if s_values:
             min_s = min(s_values, key=lambda x: x[0])
             max_s = max(s_values, key=lambda x: x[0])
-            
+
             # Draw min_s point in green
             self.world.debug.draw_point(
                 min_s[1].transform.location,
@@ -103,7 +103,7 @@ class LoadMapNode(Node):
                 color=carla.Color(0, 255, 0),  # Green
                 life_time=0.0
             )
-            
+
             # Draw max_s point in red
             self.world.debug.draw_point(
                 max_s[1].transform.location,
@@ -111,7 +111,7 @@ class LoadMapNode(Node):
                 color=carla.Color(255, 0, 0),  # Red
                 life_time=0.0
             )
-            
+
             self.get_logger().info(f"Track start at s={min_s[0]:.2f}, location={min_s[1].transform.location}")
             self.get_logger().info(f"Track end at s={max_s[0]:.2f}, location={max_s[1].transform.location}")
 
@@ -136,6 +136,7 @@ def main(args=None):
     finally:
         node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
