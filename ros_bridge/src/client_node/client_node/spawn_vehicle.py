@@ -63,7 +63,7 @@ class SpawnVehicleNode(Node):
     def publish_vehicle_control(self):
         if self.vehicle is not None and self.vehicle.is_alive:
             control = self.vehicle.get_control()
-
+            self.get_logger().info(f"Throttle: {control.throttle}, Steer: {control.steer}, Brake: {control.brake}")
             msg = Float32MultiArray()
             msg.data = [control.throttle, control.steer, control.brake]
             self.control_publisher.publish(msg)
