@@ -4,9 +4,11 @@ import carla
 from carla import Client, Transform, Location, Rotation, TrafficManager
 import json
 import os
+from std_msgs.msg import Float32MultiArray
 from ament_index_python.packages import get_package_share_directory
 import time
 
+from rclpy.qos import QoSProfile, ReliabilityPolicy
 # For ROS2 messages
 from sensor_msgs.msg import Image, PointCloud2, Imu, NavSatFix
 from std_msgs.msg import Header
@@ -48,10 +50,23 @@ class SpawnVehicleNode(Node):
         self.sensor_config_file = os.path.join(
             get_package_share_directory('client_node'), 'client_node', 'sensors_config.json'
         )
+        qos_profile = QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE)
+
+        self.physics_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/physics', 10)
+        self.timer = self.create_timer(0.5, self.publish_vehicle_physics)
+
         self.vehicle = None
         self.spawn_objects_from_config()
         
-
+    def publish_vehicle_physics(self):
+        if self.vehicle is not None and self.vehicle.is_alive:
+            physics_control = self.vehicle.get_physics_control()
+            
+            msg = Float32MultiArray()
+            msg.data = [physics_control.mass, physics_control.drag_coefficient]
+            self.physics_publisher.publish(msg)
+            # self.get_logger().info(f"Published Physics: Mass={physics_control.mass} kg, Drag Coeff={physics_control.drag_coefficient
+    
     def spawn_objects_from_config(self):
        
         # Add delay to ensure map is fully loaded
@@ -115,7 +130,6 @@ class SpawnVehicleNode(Node):
                 
             # Try to spawn the vehicle
             self.vehicle = self.world.try_spawn_actor(vehicle_bp, spawn_transform)
-            
             if not self.vehicle:
                 self.get_logger().error("Failed to spawn at waypoint")
                 return
@@ -135,9 +149,12 @@ class SpawnVehicleNode(Node):
             
             # Configure physics for stability
             physics_control = self.vehicle.get_physics_control()
+            # self.get_logger().info(f"Original mass: {physics_control}")
             physics_control.mass = physics_control.mass * 1.5
             self.vehicle.apply_physics_control(physics_control)
             
+            # self.get_logger().info(f"Published Physics: Mass={physics_control.mass} kg, Drag Coeff={physics_control.drag_coefficient}")
+
             # Spawn sensors
             sensors = ego_object.get("sensors", [])
             if sensors:
@@ -237,6 +254,7 @@ class SpawnVehicleNode(Node):
                         "publisher": publisher,
                         "msg_type": msg_type,
                     }
+                    
 
                     # Attach a listener callback to the CARLA sensor
                     def debug_listener(data, actor_id=sensor_actor.id):
