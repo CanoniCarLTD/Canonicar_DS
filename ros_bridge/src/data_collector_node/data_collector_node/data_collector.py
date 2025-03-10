@@ -2,13 +2,13 @@ import os
 import rclpy
 import math
 import struct
-
+import json
 from carla import Client
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import Imu, NavSatFix
 import numpy as np
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float32MultiArray, String
 from message_filters import ApproximateTimeSynchronizer, Subscriber
 from ament_index_python.packages import get_package_share_directory
 
@@ -20,6 +20,20 @@ class DataCollector(Node):
             self.prev_gnss = None  # Store previous GNSS position for velocity calculation
             self.prev_time = None  # Store timestamp
             self.speed_records = []  # Store speed values for average calculation
+
+            # Add subscribers and publishers for data requests
+            self.data_request_sub = self.create_subscription(
+                String,
+                '/carla/data_request',
+                self.handle_data_request,
+                10
+            )
+            
+            self.data_publisher = self.create_publisher(
+                String,
+                '/carla/collector_data',
+                10
+            )
 
         except Exception as e:
             self.get_logger().error(f"Error connecting to CARLA server: {e}")
@@ -61,12 +75,12 @@ class DataCollector(Node):
     def sync_callback(self, imu_msg, gnss_msg, physics_msg, controller_msg):
         """Callback function for synchronized data."""
         # self.get_logger().info("Synchronized callback triggered.")
-        self.get_logger().info(f"The physics mass {physics_msg.data[0]}, drag coef {physics_msg.data[1]}.")
+        # self.get_logger().info(f"The physics mass {physics_msg.data[0]}, drag coef {physics_msg.data[1]}.")
 
         processed_data = self.process_data(imu_msg, gnss_msg, physics_msg, controller_msg)
         self.data_buffer.append(processed_data)
-        self.get_logger().info("Data appended to buffer.")
-        self.get_logger().info(f'Latest data: {self.get_latest_data()}')
+        # self.get_logger().info("Data appended to buffer.")
+        # self.get_logger().info(f'Latest data: {self.get_latest_data()}')
 
     def process_data(self, imu_msg, gnss_msg, physics_msg, controller_msg):
         """Process synchronized data and compute vehicle parameters."""
@@ -82,7 +96,7 @@ class DataCollector(Node):
             "total_throttle": self.throttle_sum,
             "total_brake": self.brake_sum
         }
-        self.get_logger().info(f"Data:{data}")
+        # self.get_logger().info(f"Data:{data}")
         return data
 
     def process_imu(self, imu_msg):
@@ -160,6 +174,28 @@ class DataCollector(Node):
     def clear_buffer(self):
         """Clear the stored data buffer."""
         self.data_buffer.clear()
+
+    def handle_data_request(self, msg):
+        """Handle request for data from data_process_node"""
+        if msg.data == "REQUEST_DATA":
+            self.get_logger().info("Data request received, sending latest data")
+            
+            # Get the latest processed data
+            latest_data = self.get_latest_data()
+            
+            if latest_data:
+                # Convert numpy arrays to lists for JSON serialization
+                for key, value in latest_data.items():
+                    if isinstance(value, np.ndarray):
+                        latest_data[key] = value.tolist()
+                
+                # Send data as JSON string
+                response = String()
+                response.data = json.dumps(latest_data)
+                self.data_publisher.publish(response)
+                self.get_logger().info("Data sent to data_process_node")
+            else:
+                self.get_logger().warn("No data available to send")
 
 
 def main(args=None):

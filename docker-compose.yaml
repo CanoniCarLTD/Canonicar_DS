@@ -4,7 +4,7 @@ services:
   # # Carla server container
   # carla:
   #   image: carlasim/carla:0.9.13
-  #   container_name: carla_server
+  #   container_name: carla_server_ds
   #   runtime: nvidia
   #   ports: 
   #     - 2000-2002:2000-2002
@@ -39,7 +39,7 @@ services:
     build:
       context: ./ros_bridge/
       dockerfile: Dockerfile
-    container_name: carla_client
+    container_name: carla_client_ds
     tty: true
     stdin_open: true
     command: bash -c "
@@ -62,7 +62,7 @@ services:
   #     dockerfile: Dockerfile
   #   ports:
   #     - 8765:8765
-  #   container_name: foxglove_bridge
+  #   container_name: foxglove_bridge_ds
   #   command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765
   #   restart: always
   #   # depends_on: 

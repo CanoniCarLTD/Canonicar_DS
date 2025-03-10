@@ -96,11 +96,20 @@ def generate_launch_description():
         actions=[data_collector_node]
     )
 
+    data_process_node = Node(
+        package='data_process_node',
+        executable='data_process',
+        name='data_process_node',
+        output='screen'
+    )
+
+
     ld = LaunchDescription()
     ld.add_action(host_arg)
     ld.add_action(port_arg)
     ld.add_action(run_load_map_node)
     ld.add_action(delayed_spawn_vehicle)
     ld.add_action(delayed_data_collector)
+    ld.add_action(data_process_node)
     
     return ld

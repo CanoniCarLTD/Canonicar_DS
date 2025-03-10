@@ -57,13 +57,23 @@ class SpawnVehicleNode(Node):
         self.timer = self.create_timer(0.1, self.publish_vehicle_physics)
         self.control_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/control', 10)
         self.timer = self.create_timer(0.1, self.publish_vehicle_control)
+        self.location_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/location', 10)
+        self.timer = self.create_timer(0.1, self.publish_vehicle_location)
         self.vehicle = None
         self.spawn_objects_from_config()
+
+    def publish_vehicle_location(self):
+        if self.vehicle is not None and self.vehicle.is_alive:
+            location = self.vehicle.get_location()
+            msg = Float32MultiArray()
+            msg.data = [location.x, location.y, location.z]
+            self.location_publisher.publish(msg)
+        
 
     def publish_vehicle_control(self):
         if self.vehicle is not None and self.vehicle.is_alive:
             control = self.vehicle.get_control()
-            self.get_logger().info(f"Throttle: {control.throttle}, Steer: {control.steer}, Brake: {control.brake}")
+            # self.get_logger().info(f"Throttle: {control.throttle}, Steer: {control.steer}, Brake: {control.brake}")
             msg = Float32MultiArray()
             msg.data = [control.throttle, control.steer, control.brake]
             self.control_publisher.publish(msg)
@@ -142,9 +152,12 @@ class SpawnVehicleNode(Node):
             if not self.vehicle:
                 self.get_logger().error("Failed to spawn at waypoint")
                 return
-
+            
+            location = self.vehicle.get_location()
+            self.get_logger().info(f"Spawned vehicle at {location}")
             self.get_logger().info(f"Spawned vehicle at {self.vehicle.get_location()}")
-
+            self.get_logger().info(f"Spawned X at {self.vehicle.get_location().x}")
+            self.get_logger().info(f"Spawned y at {location.x}")
             # Add collision sensor for debugging
             collision_bp = blueprint_library.find('sensor.other.collision')
             if collision_bp:
