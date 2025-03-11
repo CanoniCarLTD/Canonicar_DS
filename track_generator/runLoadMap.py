@@ -237,16 +237,16 @@ try:
     with open(TRACK_XODR, "r") as f:
         opendrive_data = f.read()
 
-    opendrive_params = carla.OpendriveGenerationParameters(
-        vertex_distance=0.5,
-        max_road_length=25.0,        # Increased from 5.0 for more continuous segments
-        wall_height=0.0,             # No walls to avoid physics issues
-        additional_width=1.0,        # Wider road for better vehicle stability
-        smooth_junctions=True,
-        enable_mesh_visibility=True,
-    )
+    # opendrive_params = carla.OpendriveGenerationParameters(
+    #     vertex_distance=0.5,
+    #     max_road_length=25.0,        # Increased from 5.0 for more continuous segments
+    #     wall_height=0.0,             # No walls to avoid physics issues
+    #     additional_width=1.0,        # Wider road for better vehicle stability
+    #     smooth_junctions=True,
+    #     enable_mesh_visibility=True,
+    # )
 
-    world = client.generate_opendrive_world(opendrive_data, opendrive_params)
+    world = client.generate_opendrive_world(opendrive_data)
     world = client.get_world()
     map = world.get_map()
     world.set_weather(carla.WeatherParameters.CloudyNoon)
