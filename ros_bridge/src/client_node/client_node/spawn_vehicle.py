@@ -59,8 +59,36 @@ class SpawnVehicleNode(Node):
         self.timer = self.create_timer(0.1, self.publish_vehicle_control)
         self.location_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/location', 10)
         self.timer = self.create_timer(0.1, self.publish_vehicle_location)
+        self.vehicle_data_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/data', 10)
+        self.timer = self.create_timer(0.1, self.publish_vehicle_data)
         self.vehicle = None
         self.spawn_objects_from_config()
+
+    def publish_vehicle_data(self):
+        if self.vehicle is not None and self.vehicle.is_alive:
+            physics_control = self.vehicle.get_physics_control()
+            wheels = physics_control.wheels
+            msg = Float32MultiArray()
+            data = [
+            float(physics_control.mass),
+            float(physics_control.drag_coefficient),
+            float(physics_control.center_of_mass.x),
+            float(physics_control.center_of_mass.y),
+            float(physics_control.center_of_mass.z),
+            float(physics_control.max_rpm),
+            float(physics_control.moi),
+            float(physics_control.clutch_strength),
+            float(physics_control.gear_switch_time),
+            float(wheels[0].tire_friction),
+            float(wheels[0].damping_rate),
+            float(wheels[0].max_steer_angle),
+            float(wheels[0].radius),
+            float(wheels[0].max_brake_torque)
+        ]
+        
+        # Ensure all values are actually float type
+        msg.data = [float(val) for val in data]
+        self.vehicle_data_publisher.publish(msg)
 
     def publish_vehicle_location(self):
         if self.vehicle is not None and self.vehicle.is_alive:

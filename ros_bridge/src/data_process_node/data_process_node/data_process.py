@@ -21,10 +21,6 @@ class DataProcessNode(Node):
     def __init__(self):
         super().__init__('data_process')
         self.get_logger().info("DataProcess Node initialized.")
-
-        # Parameters
-        self.declare_parameter('lap_threshold', 10.0)  # Distance in meters to consider lap completed
-        self.lap_threshold = self.get_parameter('lap_threshold').value
         
         # Track start point and lap status
         self.start_point = None
@@ -33,8 +29,12 @@ class DataProcessNode(Node):
         self.data_lock = threading.Lock()
         self.lap_data = []
         self.lap_time = 0.0
+
+        self.vehicle_data = None
+        self.current_lap_vehicle_data = []
         
         self.location_subscriber = self.create_subscription(Float32MultiArray, '/carla/vehicle/location', self.location_callback,10)
+        self.vehicle_data_subscriber = self.create_subscription(Float32MultiArray, '/carla/vehicle/data', self.vehicle_data_callback, 10)
         
         # For communicating with data_collector
         self.get_data_publisher = self.create_publisher(
@@ -49,10 +49,13 @@ class DataProcessNode(Node):
             10)
             
         self.get_logger().info("DataProcess Node setup complete")
+
+    def vehicle_data_callback(self, msg):
+        """Process vehicle data"""
+        self.vehicle_data = msg.data
     
     def location_callback(self, msg):
         """Process vehicle location data"""
-        # Save vehicle location for future use
         self.vehicle_location = msg.data
         # self.get_logger().info(f"Vehicle location: {self.vehicle_location}")
         if self.start_point is None:
@@ -67,7 +70,7 @@ class DataProcessNode(Node):
             return
 
         distance = self.calculate_distance(self.start_point, self.vehicle_location)
-        self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
+        #self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
         if distance < 1:
             if not self.lap_completed:
                 self.lap_completed = True
@@ -102,8 +105,10 @@ class DataProcessNode(Node):
                 
                 # Add lap number to data
                 data_dict["lap_number"] = self.lap_count
-                self.lap_data.append(data_dict)
+                if self.vehicle_data is not None:
+                    data_dict["vehicle_physics"] = list(self.vehicle_data)
                 
+                self.lap_data.append(data_dict)
                 # Save data after each lap
                 self.save_data_to_excel()
                 
@@ -138,7 +143,28 @@ class DataProcessNode(Node):
                 'total_throttle': lap_entry['total_throttle'],
                 'total_brake': lap_entry['total_brake']
             }
-            
+
+            # Add vehicle physics data if available
+            if 'vehicle_physics' in lap_entry and len(lap_entry['vehicle_physics']) >= 14:
+                self.get_logger().info("Adding vehicle physics data to Excel")
+                vp = lap_entry['vehicle_physics']
+                entry.update({
+                    'mass': vp[0],                   
+                    'drag_coefficient': vp[1],       
+                    'center_of_mass_x': vp[2],       
+                    'center_of_mass_y': vp[3],       
+                    'center_of_mass_z': vp[4],       
+                    'max_rpm': vp[5],                
+                    'moment_of_inertia': vp[6],      
+                    'clutch_strength': vp[7],        
+                    'gear_switch_time': vp[8],       
+                    'tire_friction': vp[9],        
+                    'damping_rate': vp[10],          
+                    'max_steer_angle': vp[11],        
+                    'wheel_radius': vp[12],          
+                    'max_brake_torque': vp[13]     
+                })
+                        
             # Add IMU data (acceleration, angular velocity)
             if 'imu' in lap_entry:
                 imu = lap_entry['imu']
