@@ -7,7 +7,7 @@ import os
 from std_msgs.msg import Float32MultiArray
 from ament_index_python.packages import get_package_share_directory
 import time
-
+from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy
 # For ROS2 messages
 from sensor_msgs.msg import Image, PointCloud2, Imu, NavSatFix
@@ -22,19 +22,22 @@ from sensors_data import (
     carla_gnss_to_ros_navsatfix,
 )
 
-
 class SpawnVehicleNode(Node):
     def __init__(self):
         super().__init__('spawn_vehicle_node')
 
         self.declare_parameter('host', '')
         self.declare_parameter('port', 2000)
+        self.declare_parameter('vehicle_type', "vehicle.tesla.model3")  # Default vehicle type
 
         self.host = self.get_parameter('host').value
         self.port = self.get_parameter('port').value
+        self.vehicle_type = self.get_parameter('vehicle_type').value  # Read vehicle type
+
+        self.get_logger().info(f"Connecting to CARLA server at {self.host}:{self.port} with vehicle {self.vehicle_type}")
 
         try:
-            self.client = Client(self.host, self.port)
+            self.client = Client(self.host, 2000)
             self.client.set_timeout(10.0)
             self.world = self.client.get_world()
             settings = self.world.get_settings()
@@ -60,8 +63,69 @@ class SpawnVehicleNode(Node):
         self.location_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/location', 10)
         self.timer = self.create_timer(0.1, self.publish_vehicle_location)
         self.vehicle_data_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/data', 10)
-        self.timer = self.create_timer(0.1, self.publish_vehicle_data)
+        # self.timer = self.create_timer(0.1, self.publish_vehicle_data)
         self.vehicle = None
+        self.lap_subscription = self.create_subscription(
+            String,
+            '/lap_completed',  # Topic name for lap completion
+            self.lap_callback,  # Callback function
+            10  # QoS
+        )
+        self.start_subscription = self.create_subscription(
+            String,
+            '/start_vehicle_manager',  # Topic name for lap completion
+            self.lap_callback,  # Callback function
+            10  # QoS
+        )
+        self.vehicle_types = [
+    "vehicle.audi.a2",
+    "vehicle.chevrolet.impala",
+    "vehicle.citroen.c3",
+    "vehicle.micro.microlino",
+    "vehicle.dodge.charger_police",
+    "vehicle.audi.tt",
+    "vehicle.jeep.wrangler_rubicon",
+    "vehicle.mercedes.coupe",
+    "vehicle.mercedes.coupe_2020",
+    "vehicle.harley-davidson.low_rider",
+    "vehicle.dodge.charger_2020",
+    "vehicle.ford.ambulance",
+    "vehicle.lincoln.mkz_2020",
+    "vehicle.mini.cooper_s_2021",
+    "vehicle.toyota.prius",
+    "vehicle.ford.crown",
+    "vehicle.carlamotors.carlacola",
+    "vehicle.vespa.zx125",
+    "vehicle.nissan.patrol_2021",
+    "vehicle.dodge.charger_police_2020",
+    "vehicle.mercedes.sprinter",
+    "vehicle.audi.etron",
+    "vehicle.seat.leon",
+    "vehicle.volkswagen.t2_2021",
+    "vehicle.tesla.cybertruck",
+    "vehicle.lincoln.mkz_2017",
+    "vehicle.ford.mustang",
+    "vehicle.carlamotors.firetruck",
+    "vehicle.volkswagen.t2",
+    "vehicle.tesla.model3",
+    "vehicle.diamondback.century",
+    "vehicle.gazelle.omafiets",
+    "vehicle.bmw.grandtourer",
+    "vehicle.bh.crossbike",
+    "vehicle.kawasaki.ninja",
+    "vehicle.yamaha.yzf",
+    "vehicle.nissan.patrol",
+    "vehicle.nissan.micra",
+    "vehicle.mini.cooper_s"
+]
+        self.current_vehicle_index = 0  # To keep track of which vehicle to spawn next
+        self.spawn_objects_from_config()
+
+    def lap_callback(self, msg):
+        self.get_logger().info(f"Lap completed! Destroy vehicle {self.vehicle_type}")
+        self.destroy_actors()
+        self.vehicle_type = self.vehicle_types[self.current_vehicle_index]
+        self.current_vehicle_index = (self.current_vehicle_index + 1) % len(self.vehicle_types)
         self.spawn_objects_from_config()
 
     def publish_vehicle_data(self):
@@ -96,7 +160,6 @@ class SpawnVehicleNode(Node):
             msg = Float32MultiArray()
             msg.data = [location.x, location.y, location.z]
             self.location_publisher.publish(msg)
-        
 
     def publish_vehicle_control(self):
         if self.vehicle is not None and self.vehicle.is_alive:
@@ -133,7 +196,7 @@ class SpawnVehicleNode(Node):
                 return
 
             ego_object = objects[0]
-            vehicle_type = ego_object.get("type", "")
+            vehicle_type = self.vehicle_type
             if not vehicle_type.startswith("vehicle."):
                 self.get_logger().error("No valid vehicle object found in JSON.")
                 return

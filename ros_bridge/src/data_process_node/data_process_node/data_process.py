@@ -14,6 +14,7 @@ from rclpy.callback_groups import MutuallyExclusiveCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 import threading
 import time
+import openpyxl
 
 
 
@@ -47,7 +48,15 @@ class DataProcessNode(Node):
             '/carla/collector_data',
             self.data_callback,
             10)
-            
+        
+        self.lap_completed_publisher = self.create_publisher(
+            String,
+            '/lap_completed',
+            10)
+        self.lap2_completed_publisher = self.create_publisher(
+            String,
+            '/lap2_completed',
+            10)
         self.get_logger().info("DataProcess Node setup complete")
 
     def vehicle_data_callback(self, msg):
@@ -70,7 +79,7 @@ class DataProcessNode(Node):
             return
 
         distance = self.calculate_distance(self.start_point, self.vehicle_location)
-        #self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
+        # self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
         if distance < 1:
             if not self.lap_completed:
                 self.lap_completed = True
@@ -95,6 +104,8 @@ class DataProcessNode(Node):
         request_msg.data = "REQUEST_DATA"
         self.get_logger().info("Requesting data from collector...")
         self.get_data_publisher.publish(request_msg)
+        self.lap_completed_publisher.publish(request_msg)
+        self.lap2_completed_publisher.publish(request_msg)
         
     def data_callback(self, msg):
         """Handle data received from data collector"""

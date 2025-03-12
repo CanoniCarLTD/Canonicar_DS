@@ -1,0 +1,330 @@
+[0.000000] (-) TimerEvent: {}
+[0.000639] (data_collector_node) JobQueued: {'identifier': 'data_collector_node', 'dependencies': OrderedDict()}
+[0.000684] (data_process_node) JobQueued: {'identifier': 'data_process_node', 'dependencies': OrderedDict()}
+[0.000703] (sensors_data) JobQueued: {'identifier': 'sensors_data', 'dependencies': OrderedDict()}
+[0.000720] (vehicle_manager) JobQueued: {'identifier': 'vehicle_manager', 'dependencies': OrderedDict()}
+[0.000735] (client_node) JobQueued: {'identifier': 'client_node', 'dependencies': OrderedDict([('sensors_data', '/ros_bridge/src/install/sensors_data')])}
+[0.000753] (map_loader) JobQueued: {'identifier': 'map_loader', 'dependencies': OrderedDict([('sensors_data', '/ros_bridge/src/install/sensors_data'), ('client_node', '/ros_bridge/src/install/client_node')])}
+[0.000770] (ros_bridge_launch) JobQueued: {'identifier': 'ros_bridge_launch', 'dependencies': OrderedDict([('sensors_data', '/ros_bridge/src/install/sensors_data'), ('client_node', '/ros_bridge/src/install/client_node')])}
+[0.000787] (sensors_data) JobStarted: {'identifier': 'sensors_data'}
+[0.020813] (data_collector_node) JobStarted: {'identifier': 'data_collector_node'}
+[0.035182] (data_process_node) JobStarted: {'identifier': 'data_process_node'}
+[0.052103] (vehicle_manager) JobStarted: {'identifier': 'vehicle_manager'}
+[0.100466] (-) TimerEvent: {}
+[0.200901] (-) TimerEvent: {}
+[0.301265] (-) TimerEvent: {}
+[0.401640] (-) TimerEvent: {}
+[0.502174] (-) TimerEvent: {}
+[0.602643] (-) TimerEvent: {}
+[0.703083] (-) TimerEvent: {}
+[0.803515] (-) TimerEvent: {}
+[0.904290] (-) TimerEvent: {}
+[1.004939] (-) TimerEvent: {}
+[1.105383] (-) TimerEvent: {}
+[1.205792] (-) TimerEvent: {}
+[1.275026] (vehicle_manager) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/vehicle_manager', 'build', '--build-base', '/ros_bridge/src/build/vehicle_manager/build', 'install', '--record', '/ros_bridge/src/build/vehicle_manager/install.log', '--install-scripts', '$base/lib/vehicle_manager', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/vehicle_manager', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/vehicle_manager', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/vehicle_manager/prefix_override:/ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[1.305917] (-) TimerEvent: {}
+[1.371872] (sensors_data) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/sensors_data', 'build', '--build-base', '/ros_bridge/src/build/sensors_data/build', 'install', '--record', '/ros_bridge/src/build/sensors_data/install.log', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/sensors_data', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/sensors_data', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/sensors_data/prefix_override:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[1.406031] (-) TimerEvent: {}
+[1.506365] (-) TimerEvent: {}
+[1.508081] (vehicle_manager) StdoutLine: {'line': b'running egg_info\n'}
+[1.508889] (vehicle_manager) StdoutLine: {'line': b'creating ../build/vehicle_manager/vehicle_manager.egg-info\n'}
+[1.516533] (data_process_node) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/data_process_node', 'build', '--build-base', '/ros_bridge/src/build/data_process_node/build', 'install', '--record', '/ros_bridge/src/build/data_process_node/install.log', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/data_process_node', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/data_process_node', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/data_process_node/prefix_override:/ros_bridge/src/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[1.519670] (vehicle_manager) StdoutLine: {'line': b'writing ../build/vehicle_manager/vehicle_manager.egg-info/PKG-INFO\n'}
+[1.519926] (vehicle_manager) StdoutLine: {'line': b'writing dependency_links to ../build/vehicle_manager/vehicle_manager.egg-info/dependency_links.txt\n'}
+[1.520245] (vehicle_manager) StdoutLine: {'line': b'writing entry points to ../build/vehicle_manager/vehicle_manager.egg-info/entry_points.txt\n'}
+[1.520298] (vehicle_manager) StdoutLine: {'line': b'writing requirements to ../build/vehicle_manager/vehicle_manager.egg-info/requires.txt\n'}
+[1.520337] (vehicle_manager) StdoutLine: {'line': b'writing top-level names to ../build/vehicle_manager/vehicle_manager.egg-info/top_level.txt\n'}
+[1.520375] (vehicle_manager) StdoutLine: {'line': b"writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'\n"}
+[1.549284] (vehicle_manager) StdoutLine: {'line': b"reading manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'\n"}
+[1.549931] (vehicle_manager) StdoutLine: {'line': b"writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'\n"}
+[1.550089] (vehicle_manager) StdoutLine: {'line': b'running build\n'}
+[1.550169] (vehicle_manager) StdoutLine: {'line': b'running build_py\n'}
+[1.550392] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/build/vehicle_manager/build\n'}
+[1.552580] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/build/vehicle_manager/build/lib\n'}
+[1.552689] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager\n'}
+[1.553104] (vehicle_manager) StdoutLine: {'line': b'copying vehicle_manager/__init__.py -> /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager\n'}
+[1.553191] (vehicle_manager) StdoutLine: {'line': b'copying vehicle_manager/vehicle_manager_node.py -> /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager\n'}
+[1.553274] (vehicle_manager) StdoutLine: {'line': b'running install\n'}
+[1.554472] (vehicle_manager) StdoutLine: {'line': b'running install_lib\n'}
+[1.555232] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager\n'}
+[1.556783] (vehicle_manager) StdoutLine: {'line': b'copying /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager/__init__.py -> /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager\n'}
+[1.557235] (vehicle_manager) StdoutLine: {'line': b'copying /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager/vehicle_manager_node.py -> /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager\n'}
+[1.557446] (vehicle_manager) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager/__init__.py to __init__.cpython-38.pyc\n'}
+[1.558619] (vehicle_manager) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager/vehicle_manager_node.py to vehicle_manager_node.cpython-38.pyc\n'}
+[1.559466] (vehicle_manager) StdoutLine: {'line': b'running install_data\n'}
+[1.560216] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/install/vehicle_manager/share/ament_index\n'}
+[1.560317] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index\n'}
+[1.560362] (vehicle_manager) StdoutLine: {'line': b'creating /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index/packages\n'}
+[1.560468] (vehicle_manager) StdoutLine: {'line': b'copying resource/vehicle_manager -> /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index/packages\n'}
+[1.560657] (vehicle_manager) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/vehicle_manager/share/vehicle_manager\n'}
+[1.560891] (vehicle_manager) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.563662] (vehicle_manager) StdoutLine: {'line': b'Copying ../build/vehicle_manager/vehicle_manager.egg-info to /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager-0.0.0-py3.8.egg-info\n'}
+[1.564781] (vehicle_manager) StdoutLine: {'line': b'running install_scripts\n'}
+[1.572878] (sensors_data) StdoutLine: {'line': b'running egg_info\n'}
+[1.573795] (sensors_data) StdoutLine: {'line': b'creating ../build/sensors_data/sensors_data.egg-info\n'}
+[1.574887] (sensors_data) StdoutLine: {'line': b'writing ../build/sensors_data/sensors_data.egg-info/PKG-INFO\n'}
+[1.576201] (sensors_data) StdoutLine: {'line': b'writing dependency_links to ../build/sensors_data/sensors_data.egg-info/dependency_links.txt\n'}
+[1.576300] (sensors_data) StdoutLine: {'line': b'writing entry points to ../build/sensors_data/sensors_data.egg-info/entry_points.txt\n'}
+[1.576345] (sensors_data) StdoutLine: {'line': b'writing requirements to ../build/sensors_data/sensors_data.egg-info/requires.txt\n'}
+[1.576385] (sensors_data) StdoutLine: {'line': b'writing top-level names to ../build/sensors_data/sensors_data.egg-info/top_level.txt\n'}
+[1.577720] (sensors_data) StdoutLine: {'line': b"writing manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'\n"}
+[1.588349] (vehicle_manager) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/vehicle_manager/install.log'\n"}
+[1.606461] (-) TimerEvent: {}
+[1.612434] (sensors_data) StdoutLine: {'line': b"reading manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'\n"}
+[1.612608] (sensors_data) StdoutLine: {'line': b"writing manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'\n"}
+[1.612654] (sensors_data) StdoutLine: {'line': b'running build\n'}
+[1.612695] (sensors_data) StdoutLine: {'line': b'running build_py\n'}
+[1.612733] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/build/sensors_data/build\n'}
+[1.612771] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/build/sensors_data/build/lib\n'}
+[1.612808] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/build/sensors_data/build/lib/sensors_data\n'}
+[1.612884] (sensors_data) StdoutLine: {'line': b'copying sensors_data/gnss.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data\n'}
+[1.612925] (sensors_data) StdoutLine: {'line': b'copying sensors_data/__init__.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data\n'}
+[1.612962] (sensors_data) StdoutLine: {'line': b'copying sensors_data/lidar.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data\n'}
+[1.612999] (sensors_data) StdoutLine: {'line': b'copying sensors_data/rgb_camera.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data\n'}
+[1.613035] (sensors_data) StdoutLine: {'line': b'copying sensors_data/imu.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data\n'}
+[1.613073] (sensors_data) StdoutLine: {'line': b'running install\n'}
+[1.613109] (sensors_data) StdoutLine: {'line': b'running install_lib\n'}
+[1.614636] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data\n'}
+[1.620985] (sensors_data) StdoutLine: {'line': b'copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/gnss.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data\n'}
+[1.621154] (sensors_data) StdoutLine: {'line': b'copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/__init__.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data\n'}
+[1.621399] (sensors_data) StdoutLine: {'line': b'copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/lidar.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data\n'}
+[1.621447] (sensors_data) StdoutLine: {'line': b'copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/rgb_camera.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data\n'}
+[1.621487] (sensors_data) StdoutLine: {'line': b'copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/imu.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data\n'}
+[1.621527] (sensors_data) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/gnss.py to gnss.cpython-38.pyc\n'}
+[1.621572] (sensors_data) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/__init__.py to __init__.cpython-38.pyc\n'}
+[1.621611] (sensors_data) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/lidar.py to lidar.cpython-38.pyc\n'}
+[1.621648] (sensors_data) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/rgb_camera.py to rgb_camera.cpython-38.pyc\n'}
+[1.621685] (sensors_data) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/imu.py to imu.cpython-38.pyc\n'}
+[1.621722] (sensors_data) StdoutLine: {'line': b'running install_data\n'}
+[1.621758] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/install/sensors_data/share/ament_index\n'}
+[1.621794] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/install/sensors_data/share/ament_index/resource_index\n'}
+[1.621830] (sensors_data) StdoutLine: {'line': b'creating /ros_bridge/src/install/sensors_data/share/ament_index/resource_index/packages\n'}
+[1.621866] (sensors_data) StdoutLine: {'line': b'copying resource/sensors_data -> /ros_bridge/src/install/sensors_data/share/ament_index/resource_index/packages\n'}
+[1.621903] (sensors_data) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/sensors_data/share/sensors_data\n'}
+[1.621943] (sensors_data) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.625988] (vehicle_manager) CommandEnded: {'returncode': 0}
+[1.626278] (sensors_data) StdoutLine: {'line': b'Copying ../build/sensors_data/sensors_data.egg-info to /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data-0.0.0-py3.8.egg-info\n'}
+[1.640875] (sensors_data) StdoutLine: {'line': b'running install_scripts\n'}
+[1.645722] (vehicle_manager) JobEnded: {'identifier': 'vehicle_manager', 'rc': 0}
+[1.647309] (data_collector_node) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/data_collector_node', 'build', '--build-base', '/ros_bridge/src/build/data_collector_node/build', 'install', '--record', '/ros_bridge/src/build/data_collector_node/install.log', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/data_collector_node', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/data_collector_node', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/data_collector_node/prefix_override:/ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[1.677746] (sensors_data) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/sensors_data/install.log'\n"}
+[1.706633] (-) TimerEvent: {}
+[1.744904] (sensors_data) CommandEnded: {'returncode': 0}
+[1.759239] (sensors_data) JobEnded: {'identifier': 'sensors_data', 'rc': 0}
+[1.762364] (client_node) JobStarted: {'identifier': 'client_node'}
+[1.788920] (data_process_node) StdoutLine: {'line': b'running egg_info\n'}
+[1.789200] (data_process_node) StdoutLine: {'line': b'creating ../build/data_process_node/data_process_node.egg-info\n'}
+[1.789250] (data_process_node) StdoutLine: {'line': b'writing ../build/data_process_node/data_process_node.egg-info/PKG-INFO\n'}
+[1.789292] (data_process_node) StdoutLine: {'line': b'writing dependency_links to ../build/data_process_node/data_process_node.egg-info/dependency_links.txt\n'}
+[1.789341] (data_process_node) StdoutLine: {'line': b'writing entry points to ../build/data_process_node/data_process_node.egg-info/entry_points.txt\n'}
+[1.789382] (data_process_node) StdoutLine: {'line': b'writing requirements to ../build/data_process_node/data_process_node.egg-info/requires.txt\n'}
+[1.789420] (data_process_node) StdoutLine: {'line': b'writing top-level names to ../build/data_process_node/data_process_node.egg-info/top_level.txt\n'}
+[1.789458] (data_process_node) StdoutLine: {'line': b"writing manifest file '../build/data_process_node/data_process_node.egg-info/SOURCES.txt'\n"}
+[1.808091] (-) TimerEvent: {}
+[1.813065] (data_process_node) StdoutLine: {'line': b"reading manifest file '../build/data_process_node/data_process_node.egg-info/SOURCES.txt'\n"}
+[1.813307] (data_process_node) StdoutLine: {'line': b"writing manifest file '../build/data_process_node/data_process_node.egg-info/SOURCES.txt'\n"}
+[1.813363] (data_process_node) StdoutLine: {'line': b'running build\n'}
+[1.813405] (data_process_node) StdoutLine: {'line': b'running build_py\n'}
+[1.813444] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/data_process_node/build\n'}
+[1.813484] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/data_process_node/build/lib\n'}
+[1.813522] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/data_process_node/build/lib/data_process_node\n'}
+[1.813561] (data_process_node) StdoutLine: {'line': b'copying data_process_node/__init__.py -> /ros_bridge/src/build/data_process_node/build/lib/data_process_node\n'}
+[1.813603] (data_process_node) StdoutLine: {'line': b'copying data_process_node/data_process.py -> /ros_bridge/src/build/data_process_node/build/lib/data_process_node\n'}
+[1.813642] (data_process_node) StdoutLine: {'line': b'running install\n'}
+[1.813679] (data_process_node) StdoutLine: {'line': b'running install_lib\n'}
+[1.813716] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_process_node/lib/python3.8/site-packages/data_process_node\n'}
+[1.828996] (data_process_node) StdoutLine: {'line': b'copying /ros_bridge/src/build/data_process_node/build/lib/data_process_node/__init__.py -> /ros_bridge/src/install/data_process_node/lib/python3.8/site-packages/data_process_node\n'}
+[1.829176] (data_process_node) StdoutLine: {'line': b'copying /ros_bridge/src/build/data_process_node/build/lib/data_process_node/data_process.py -> /ros_bridge/src/install/data_process_node/lib/python3.8/site-packages/data_process_node\n'}
+[1.829225] (data_process_node) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/data_process_node/lib/python3.8/site-packages/data_process_node/__init__.py to __init__.cpython-38.pyc\n'}
+[1.829267] (data_process_node) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/data_process_node/lib/python3.8/site-packages/data_process_node/data_process.py to data_process.cpython-38.pyc\n'}
+[1.829306] (data_process_node) StdoutLine: {'line': b'running install_data\n'}
+[1.829344] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_process_node/share/ament_index\n'}
+[1.829381] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_process_node/share/ament_index/resource_index\n'}
+[1.829419] (data_process_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_process_node/share/ament_index/resource_index/packages\n'}
+[1.829456] (data_process_node) StdoutLine: {'line': b'copying resource/data_process_node -> /ros_bridge/src/install/data_process_node/share/ament_index/resource_index/packages\n'}
+[1.829497] (data_process_node) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/data_process_node/share/data_process_node\n'}
+[1.829534] (data_process_node) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.829570] (data_process_node) StdoutLine: {'line': b'Copying ../build/data_process_node/data_process_node.egg-info to /ros_bridge/src/install/data_process_node/lib/python3.8/site-packages/data_process_node-0.0.0-py3.8.egg-info\n'}
+[1.829608] (data_process_node) StdoutLine: {'line': b'running install_scripts\n'}
+[1.836481] (data_process_node) StdoutLine: {'line': b'Installing data_process script to /ros_bridge/src/install/data_process_node/lib/data_process_node\n'}
+[1.838077] (data_process_node) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/data_process_node/install.log'\n"}
+[1.894478] (data_collector_node) StdoutLine: {'line': b'running egg_info\n'}
+[1.894765] (data_collector_node) StdoutLine: {'line': b'creating ../build/data_collector_node/data_collector_node.egg-info\n'}
+[1.896609] (data_collector_node) StdoutLine: {'line': b'writing ../build/data_collector_node/data_collector_node.egg-info/PKG-INFO\n'}
+[1.897460] (data_collector_node) StdoutLine: {'line': b'writing dependency_links to ../build/data_collector_node/data_collector_node.egg-info/dependency_links.txt\n'}
+[1.897614] (data_collector_node) StdoutLine: {'line': b'writing entry points to ../build/data_collector_node/data_collector_node.egg-info/entry_points.txt\n'}
+[1.897707] (data_collector_node) StdoutLine: {'line': b'writing requirements to ../build/data_collector_node/data_collector_node.egg-info/requires.txt\n'}
+[1.897970] (data_collector_node) StdoutLine: {'line': b'writing top-level names to ../build/data_collector_node/data_collector_node.egg-info/top_level.txt\n'}
+[1.898867] (data_collector_node) StdoutLine: {'line': b"writing manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'\n"}
+[1.908184] (-) TimerEvent: {}
+[1.929232] (data_collector_node) StdoutLine: {'line': b"reading manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'\n"}
+[1.930171] (data_collector_node) StdoutLine: {'line': b"writing manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'\n"}
+[1.930349] (data_collector_node) StdoutLine: {'line': b'running build\n'}
+[1.930448] (data_collector_node) StdoutLine: {'line': b'running build_py\n'}
+[1.930507] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/data_collector_node/build\n'}
+[1.930807] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/data_collector_node/build/lib\n'}
+[1.931000] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node\n'}
+[1.931781] (data_collector_node) StdoutLine: {'line': b'copying data_collector_node/__init__.py -> /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node\n'}
+[1.931866] (data_collector_node) StdoutLine: {'line': b'copying data_collector_node/data_collector.py -> /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node\n'}
+[1.931912] (data_collector_node) StdoutLine: {'line': b'running install\n'}
+[1.932853] (data_collector_node) StdoutLine: {'line': b'running install_lib\n'}
+[1.936958] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node\n'}
+[1.937113] (data_collector_node) StdoutLine: {'line': b'copying /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node/__init__.py -> /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node\n'}
+[1.937167] (data_collector_node) StdoutLine: {'line': b'copying /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node/data_collector.py -> /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node\n'}
+[1.937210] (data_collector_node) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node/__init__.py to __init__.cpython-38.pyc\n'}
+[1.937249] (data_collector_node) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node/data_collector.py to data_collector.cpython-38.pyc\n'}
+[1.938542] (data_collector_node) StdoutLine: {'line': b'running install_data\n'}
+[1.941432] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_collector_node/share/ament_index\n'}
+[1.941549] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_collector_node/share/ament_index/resource_index\n'}
+[1.941597] (data_collector_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/data_collector_node/share/ament_index/resource_index/packages\n'}
+[1.941640] (data_collector_node) StdoutLine: {'line': b'copying resource/data_collector_node -> /ros_bridge/src/install/data_collector_node/share/ament_index/resource_index/packages\n'}
+[1.941680] (data_collector_node) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/data_collector_node/share/data_collector_node\n'}
+[1.941719] (data_collector_node) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.941756] (data_collector_node) StdoutLine: {'line': b'Copying ../build/data_collector_node/data_collector_node.egg-info to /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node-0.0.0-py3.8.egg-info\n'}
+[1.941795] (data_collector_node) StdoutLine: {'line': b'running install_scripts\n'}
+[1.958935] (data_collector_node) StdoutLine: {'line': b'Installing data_collector script to /ros_bridge/src/install/data_collector_node/lib/data_collector_node\n'}
+[1.959103] (data_collector_node) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/data_collector_node/install.log'\n"}
+[2.008296] (-) TimerEvent: {}
+[2.031998] (data_process_node) CommandEnded: {'returncode': 0}
+[2.045840] (data_process_node) JobEnded: {'identifier': 'data_process_node', 'rc': 0}
+[2.051576] (data_collector_node) CommandEnded: {'returncode': 0}
+[2.059511] (data_collector_node) JobEnded: {'identifier': 'data_collector_node', 'rc': 0}
+[2.108428] (-) TimerEvent: {}
+[2.208896] (-) TimerEvent: {}
+[2.309376] (-) TimerEvent: {}
+[2.409767] (-) TimerEvent: {}
+[2.416809] (client_node) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/client_node', 'build', '--build-base', '/ros_bridge/src/build/client_node/build', 'install', '--record', '/ros_bridge/src/build/client_node/install.log', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/client_node', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/src/install/sensors_data:/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/client_node', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/client_node/prefix_override:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[2.509899] (-) TimerEvent: {}
+[2.599297] (client_node) StdoutLine: {'line': b'running egg_info\n'}
+[2.599646] (client_node) StdoutLine: {'line': b'creating ../build/client_node/client_node.egg-info\n'}
+[2.599833] (client_node) StdoutLine: {'line': b'writing ../build/client_node/client_node.egg-info/PKG-INFO\n'}
+[2.600043] (client_node) StdoutLine: {'line': b'writing dependency_links to ../build/client_node/client_node.egg-info/dependency_links.txt\n'}
+[2.600126] (client_node) StdoutLine: {'line': b'writing entry points to ../build/client_node/client_node.egg-info/entry_points.txt\n'}
+[2.600195] (client_node) StdoutLine: {'line': b'writing requirements to ../build/client_node/client_node.egg-info/requires.txt\n'}
+[2.600267] (client_node) StdoutLine: {'line': b'writing top-level names to ../build/client_node/client_node.egg-info/top_level.txt\n'}
+[2.601295] (client_node) StdoutLine: {'line': b"writing manifest file '../build/client_node/client_node.egg-info/SOURCES.txt'\n"}
+[2.610051] (-) TimerEvent: {}
+[2.628033] (client_node) StdoutLine: {'line': b"reading manifest file '../build/client_node/client_node.egg-info/SOURCES.txt'\n"}
+[2.628560] (client_node) StdoutLine: {'line': b"writing manifest file '../build/client_node/client_node.egg-info/SOURCES.txt'\n"}
+[2.628688] (client_node) StdoutLine: {'line': b'running build\n'}
+[2.629072] (client_node) StdoutLine: {'line': b'running build_py\n'}
+[2.629172] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/client_node/build\n'}
+[2.629213] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/client_node/build/lib\n'}
+[2.629251] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/build/client_node/build/lib/client_node\n'}
+[2.629290] (client_node) StdoutLine: {'line': b'copying client_node/__init__.py -> /ros_bridge/src/build/client_node/build/lib/client_node\n'}
+[2.629406] (client_node) StdoutLine: {'line': b'copying client_node/spawn_vehicle.py -> /ros_bridge/src/build/client_node/build/lib/client_node\n'}
+[2.629571] (client_node) StdoutLine: {'line': b'running install\n'}
+[2.630336] (client_node) StdoutLine: {'line': b'running install_lib\n'}
+[2.631084] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node\n'}
+[2.631239] (client_node) StdoutLine: {'line': b'copying /ros_bridge/src/build/client_node/build/lib/client_node/__init__.py -> /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node\n'}
+[2.631415] (client_node) StdoutLine: {'line': b'copying /ros_bridge/src/build/client_node/build/lib/client_node/spawn_vehicle.py -> /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node\n'}
+[2.631932] (client_node) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node/__init__.py to __init__.cpython-38.pyc\n'}
+[2.632827] (client_node) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node/spawn_vehicle.py to spawn_vehicle.cpython-38.pyc\n'}
+[2.635106] (client_node) StdoutLine: {'line': b'running install_data\n'}
+[2.635671] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/client_node/share/ament_index\n'}
+[2.635756] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/client_node/share/ament_index/resource_index\n'}
+[2.636151] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/client_node/share/ament_index/resource_index/packages\n'}
+[2.636397] (client_node) StdoutLine: {'line': b'copying resource/client_node -> /ros_bridge/src/install/client_node/share/ament_index/resource_index/packages\n'}
+[2.636454] (client_node) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/client_node/share/client_node\n'}
+[2.636631] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/client_node/share/client_node/launch\n'}
+[2.636684] (client_node) StdoutLine: {'line': b'copying launch/spawn_vehicle_launch.py -> /ros_bridge/src/install/client_node/share/client_node/launch\n'}
+[2.636724] (client_node) StdoutLine: {'line': b'creating /ros_bridge/src/install/client_node/share/client_node/client_node\n'}
+[2.636763] (client_node) StdoutLine: {'line': b'copying client_node/sensors_config.json -> /ros_bridge/src/install/client_node/share/client_node/client_node\n'}
+[2.636801] (client_node) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.638122] (client_node) StdoutLine: {'line': b'Copying ../build/client_node/client_node.egg-info to /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node-0.0.0-py3.8.egg-info\n'}
+[2.638824] (client_node) StdoutLine: {'line': b'running install_scripts\n'}
+[2.655080] (client_node) StdoutLine: {'line': b'Installing spawn_vehicle_node script to /ros_bridge/src/install/client_node/lib/client_node\n'}
+[2.655484] (client_node) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/client_node/install.log'\n"}
+[2.686929] (client_node) CommandEnded: {'returncode': 0}
+[2.695970] (client_node) JobEnded: {'identifier': 'client_node', 'rc': 0}
+[2.698262] (map_loader) JobStarted: {'identifier': 'map_loader'}
+[2.710381] (ros_bridge_launch) JobStarted: {'identifier': 'ros_bridge_launch'}
+[2.710541] (-) TimerEvent: {}
+[2.810819] (-) TimerEvent: {}
+[2.911215] (-) TimerEvent: {}
+[3.012944] (-) TimerEvent: {}
+[3.117965] (-) TimerEvent: {}
+[3.220483] (-) TimerEvent: {}
+[3.321458] (-) TimerEvent: {}
+[3.422932] (-) TimerEvent: {}
+[3.461012] (ros_bridge_launch) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/ros_bridge_launch', 'build', '--build-base', '/ros_bridge/src/build/ros_bridge_launch/build', 'install', '--record', '/ros_bridge/src/build/ros_bridge_launch/install.log', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/ros_bridge_launch', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/src/install/client_node:/ros_bridge/src/install/sensors_data:/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/ros_bridge_launch', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/ros_bridge_launch/prefix_override:/ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[3.495698] (map_loader) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../build/map_loader', 'build', '--build-base', '/ros_bridge/src/build/map_loader/build', 'install', '--record', '/ros_bridge/src/build/map_loader/install.log', '--single-version-externally-managed'], 'cwd': '/ros_bridge/src/map_loader', 'env': {'HOSTNAME': '6ab441878225', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/root', 'OLDPWD': '/ros_bridge/src/vehicle_manager', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/ros_bridge/install', 'ROS_DISTRO': 'foxy', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/ros_bridge/src/install/client_node:/ros_bridge/src/install/sensors_data:/ros_bridge/install/ros_bridge_launch:/ros_bridge/install/map_loader:/ros_bridge/install/client_node:/ros_bridge/install/sensors_data:/ros_bridge/install/data_process_node:/ros_bridge/install/data_collector_node:/opt/ros/foxy', 'PWD': '/ros_bridge/src/build/map_loader', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/ros_bridge/src/build/map_loader/prefix_override:/ros_bridge/src/install/map_loader/lib/python3.8/site-packages:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/install/map_loader/lib/python3.8/site-packages:/ros_bridge/install/client_node/lib/python3.8/site-packages:/ros_bridge/install/sensors_data/lib/python3.8/site-packages:/ros_bridge/install/data_process_node/lib/python3.8/site-packages:/ros_bridge/install/data_collector_node/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1'}, 'shell': False}
+[3.523059] (-) TimerEvent: {}
+[3.623389] (-) TimerEvent: {}
+[3.636463] (ros_bridge_launch) StdoutLine: {'line': b'running egg_info\n'}
+[3.637034] (ros_bridge_launch) StdoutLine: {'line': b'creating ../build/ros_bridge_launch/ros_bridge_launch.egg-info\n'}
+[3.637514] (ros_bridge_launch) StdoutLine: {'line': b'writing ../build/ros_bridge_launch/ros_bridge_launch.egg-info/PKG-INFO\n'}
+[3.638099] (ros_bridge_launch) StdoutLine: {'line': b'writing dependency_links to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/dependency_links.txt\n'}
+[3.638318] (ros_bridge_launch) StdoutLine: {'line': b'writing entry points to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/entry_points.txt\n'}
+[3.638602] (ros_bridge_launch) StdoutLine: {'line': b'writing requirements to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/requires.txt\n'}
+[3.638769] (ros_bridge_launch) StdoutLine: {'line': b'writing top-level names to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/top_level.txt\n'}
+[3.640015] (ros_bridge_launch) StdoutLine: {'line': b"writing manifest file '../build/ros_bridge_launch/ros_bridge_launch.egg-info/SOURCES.txt'\n"}
+[3.668648] (ros_bridge_launch) StdoutLine: {'line': b"reading manifest file '../build/ros_bridge_launch/ros_bridge_launch.egg-info/SOURCES.txt'\n"}
+[3.668848] (ros_bridge_launch) StdoutLine: {'line': b"writing manifest file '../build/ros_bridge_launch/ros_bridge_launch.egg-info/SOURCES.txt'\n"}
+[3.668936] (ros_bridge_launch) StdoutLine: {'line': b'running build\n'}
+[3.668982] (ros_bridge_launch) StdoutLine: {'line': b'running build_py\n'}
+[3.669021] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/build/ros_bridge_launch/build\n'}
+[3.669127] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/build/ros_bridge_launch/build/lib\n'}
+[3.673015] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/build/ros_bridge_launch/build/lib/ros_bridge_launch\n'}
+[3.673197] (ros_bridge_launch) StdoutLine: {'line': b'copying ros_bridge_launch/__init__.py -> /ros_bridge/src/build/ros_bridge_launch/build/lib/ros_bridge_launch\n'}
+[3.673247] (ros_bridge_launch) StdoutLine: {'line': b'running install\n'}
+[3.673292] (ros_bridge_launch) StdoutLine: {'line': b'running install_lib\n'}
+[3.673337] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages/ros_bridge_launch\n'}
+[3.673385] (ros_bridge_launch) StdoutLine: {'line': b'copying /ros_bridge/src/build/ros_bridge_launch/build/lib/ros_bridge_launch/__init__.py -> /ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages/ros_bridge_launch\n'}
+[3.673431] (ros_bridge_launch) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages/ros_bridge_launch/__init__.py to __init__.cpython-38.pyc\n'}
+[3.673511] (ros_bridge_launch) StdoutLine: {'line': b'running install_data\n'}
+[3.674025] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/install/ros_bridge_launch/share/ament_index\n'}
+[3.674216] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/install/ros_bridge_launch/share/ament_index/resource_index\n'}
+[3.674268] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/install/ros_bridge_launch/share/ament_index/resource_index/packages\n'}
+[3.674315] (ros_bridge_launch) StdoutLine: {'line': b'copying resource/ros_bridge_launch -> /ros_bridge/src/install/ros_bridge_launch/share/ament_index/resource_index/packages\n'}
+[3.674379] (ros_bridge_launch) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/ros_bridge_launch/share/ros_bridge_launch\n'}
+[3.674655] (map_loader) StdoutLine: {'line': b'running egg_info\n'}
+[3.674781] (ros_bridge_launch) StdoutLine: {'line': b'creating /ros_bridge/src/install/ros_bridge_launch/share/ros_bridge_launch/launch\n'}
+[3.674830] (ros_bridge_launch) StdoutLine: {'line': b'copying launch/system_launch.py -> /ros_bridge/src/install/ros_bridge_launch/share/ros_bridge_launch/launch\n'}
+[3.674888] (ros_bridge_launch) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.677339] (map_loader) StdoutLine: {'line': b'creating ../build/map_loader/map_loader.egg-info\n'}
+[3.677465] (map_loader) StdoutLine: {'line': b'writing ../build/map_loader/map_loader.egg-info/PKG-INFO\n'}
+[3.677505] (map_loader) StdoutLine: {'line': b'writing dependency_links to ../build/map_loader/map_loader.egg-info/dependency_links.txt\n'}
+[3.677554] (map_loader) StdoutLine: {'line': b'writing entry points to ../build/map_loader/map_loader.egg-info/entry_points.txt\n'}
+[3.677592] (map_loader) StdoutLine: {'line': b'writing requirements to ../build/map_loader/map_loader.egg-info/requires.txt\n'}
+[3.677630] (map_loader) StdoutLine: {'line': b'writing top-level names to ../build/map_loader/map_loader.egg-info/top_level.txt\n'}
+[3.677667] (map_loader) StdoutLine: {'line': b"writing manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'\n"}
+[3.677731] (ros_bridge_launch) StdoutLine: {'line': b'Copying ../build/ros_bridge_launch/ros_bridge_launch.egg-info to /ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages/ros_bridge_launch-0.0.0-py3.8.egg-info\n'}
+[3.678059] (ros_bridge_launch) StdoutLine: {'line': b'running install_scripts\n'}
+[3.700465] (ros_bridge_launch) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/ros_bridge_launch/install.log'\n"}
+[3.705200] (map_loader) StdoutLine: {'line': b"reading manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'\n"}
+[3.706485] (map_loader) StdoutLine: {'line': b"writing manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'\n"}
+[3.706566] (map_loader) StdoutLine: {'line': b'running build\n'}
+[3.706608] (map_loader) StdoutLine: {'line': b'running build_py\n'}
+[3.706647] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/build/map_loader/build\n'}
+[3.706687] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/build/map_loader/build/lib\n'}
+[3.706726] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/build/map_loader/build/lib/map_loader\n'}
+[3.706765] (map_loader) StdoutLine: {'line': b'copying map_loader/__init__.py -> /ros_bridge/src/build/map_loader/build/lib/map_loader\n'}
+[3.706803] (map_loader) StdoutLine: {'line': b'copying map_loader/load_map.py -> /ros_bridge/src/build/map_loader/build/lib/map_loader\n'}
+[3.706841] (map_loader) StdoutLine: {'line': b'running install\n'}
+[3.708868] (map_loader) StdoutLine: {'line': b'running install_lib\n'}
+[3.708927] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader\n'}
+[3.708966] (map_loader) StdoutLine: {'line': b'copying /ros_bridge/src/build/map_loader/build/lib/map_loader/__init__.py -> /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader\n'}
+[3.709007] (map_loader) StdoutLine: {'line': b'copying /ros_bridge/src/build/map_loader/build/lib/map_loader/load_map.py -> /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader\n'}
+[3.709064] (map_loader) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader/__init__.py to __init__.cpython-38.pyc\n'}
+[3.712999] (map_loader) StdoutLine: {'line': b'byte-compiling /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader/load_map.py to load_map.cpython-38.pyc\n'}
+[3.713178] (map_loader) StdoutLine: {'line': b'running install_data\n'}
+[3.713226] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/install/map_loader/share/ament_index\n'}
+[3.713270] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/install/map_loader/share/ament_index/resource_index\n'}
+[3.713315] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/install/map_loader/share/ament_index/resource_index/packages\n'}
+[3.713359] (map_loader) StdoutLine: {'line': b'copying resource/map_loader -> /ros_bridge/src/install/map_loader/share/ament_index/resource_index/packages\n'}
+[3.713404] (map_loader) StdoutLine: {'line': b'copying package.xml -> /ros_bridge/src/install/map_loader/share/map_loader\n'}
+[3.713448] (map_loader) StdoutLine: {'line': b'creating /ros_bridge/src/install/map_loader/share/map_loader/map_loader\n'}
+[3.713496] (map_loader) StdoutLine: {'line': b'copying map_loader/generatedTrack.xodr -> /ros_bridge/src/install/map_loader/share/map_loader/map_loader\n'}
+[3.713533] (map_loader) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.715212] (map_loader) StdoutLine: {'line': b'Copying ../build/map_loader/map_loader.egg-info to /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader-0.0.0-py3.8.egg-info\n'}
+[3.715355] (map_loader) StdoutLine: {'line': b'running install_scripts\n'}
+[3.723591] (-) TimerEvent: {}
+[3.737048] (ros_bridge_launch) CommandEnded: {'returncode': 0}
+[3.737719] (map_loader) StdoutLine: {'line': b'Installing load_map_node script to /ros_bridge/src/install/map_loader/lib/map_loader\n'}
+[3.738033] (map_loader) StdoutLine: {'line': b"writing list of installed files to '/ros_bridge/src/build/map_loader/install.log'\n"}
+[3.745503] (ros_bridge_launch) JobEnded: {'identifier': 'ros_bridge_launch', 'rc': 0}
+[3.772900] (map_loader) CommandEnded: {'returncode': 0}
+[3.779813] (map_loader) JobEnded: {'identifier': 'map_loader', 'rc': 0}
+[3.781226] (-) EventReactorShutdown: {}

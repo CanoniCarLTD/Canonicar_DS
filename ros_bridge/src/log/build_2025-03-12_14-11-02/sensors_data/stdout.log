@@ -1,0 +1,43 @@
+running egg_info
+creating ../build/sensors_data/sensors_data.egg-info
+writing ../build/sensors_data/sensors_data.egg-info/PKG-INFO
+writing dependency_links to ../build/sensors_data/sensors_data.egg-info/dependency_links.txt
+writing entry points to ../build/sensors_data/sensors_data.egg-info/entry_points.txt
+writing requirements to ../build/sensors_data/sensors_data.egg-info/requires.txt
+writing top-level names to ../build/sensors_data/sensors_data.egg-info/top_level.txt
+writing manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+reading manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+writing manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /ros_bridge/src/build/sensors_data/build
+creating /ros_bridge/src/build/sensors_data/build/lib
+creating /ros_bridge/src/build/sensors_data/build/lib/sensors_data
+copying sensors_data/gnss.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data
+copying sensors_data/__init__.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data
+copying sensors_data/lidar.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data
+copying sensors_data/rgb_camera.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data
+copying sensors_data/imu.py -> /ros_bridge/src/build/sensors_data/build/lib/sensors_data
+running install
+running install_lib
+creating /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data
+copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/gnss.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data
+copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/__init__.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data
+copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/lidar.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data
+copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/rgb_camera.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data
+copying /ros_bridge/src/build/sensors_data/build/lib/sensors_data/imu.py -> /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data
+byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/gnss.py to gnss.cpython-38.pyc
+byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/__init__.py to __init__.cpython-38.pyc
+byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/lidar.py to lidar.cpython-38.pyc
+byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/rgb_camera.py to rgb_camera.cpython-38.pyc
+byte-compiling /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data/imu.py to imu.cpython-38.pyc
+running install_data
+creating /ros_bridge/src/install/sensors_data/share/ament_index
+creating /ros_bridge/src/install/sensors_data/share/ament_index/resource_index
+creating /ros_bridge/src/install/sensors_data/share/ament_index/resource_index/packages
+copying resource/sensors_data -> /ros_bridge/src/install/sensors_data/share/ament_index/resource_index/packages
+copying package.xml -> /ros_bridge/src/install/sensors_data/share/sensors_data
+running install_egg_info
+Copying ../build/sensors_data/sensors_data.egg-info to /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/ros_bridge/src/build/sensors_data/install.log'

@@ -1,0 +1,20 @@
+[1.135s] Invoking command in '/ros_bridge/src/vehicle_manager': PYTHONPATH=/ros_bridge/src/build/vehicle_manager/prefix_override:/ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/vehicle_manager build --build-base /ros_bridge/src/build/vehicle_manager/build install --record /ros_bridge/src/build/vehicle_manager/install.log --install-scripts $base/lib/vehicle_manager --single-version-externally-managed
+[1.299s] running egg_info
+[1.299s] writing ../build/vehicle_manager/vehicle_manager.egg-info/PKG-INFO
+[1.299s] writing dependency_links to ../build/vehicle_manager/vehicle_manager.egg-info/dependency_links.txt
+[1.299s] writing entry points to ../build/vehicle_manager/vehicle_manager.egg-info/entry_points.txt
+[1.299s] writing requirements to ../build/vehicle_manager/vehicle_manager.egg-info/requires.txt
+[1.299s] writing top-level names to ../build/vehicle_manager/vehicle_manager.egg-info/top_level.txt
+[1.327s] reading manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+[1.327s] writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+[1.327s] running build
+[1.327s] running build_py
+[1.327s] running install
+[1.327s] running install_lib
+[1.327s] running install_data
+[1.327s] running install_egg_info
+[1.334s] removing '/ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager-0.0.0-py3.8.egg-info' (and everything under it)
+[1.334s] Copying ../build/vehicle_manager/vehicle_manager.egg-info to /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager-0.0.0-py3.8.egg-info
+[1.334s] running install_scripts
+[1.348s] writing list of installed files to '/ros_bridge/src/build/vehicle_manager/install.log'
+[1.387s] Invoked command in '/ros_bridge/src/vehicle_manager' returned '0': PYTHONPATH=/ros_bridge/src/build/vehicle_manager/prefix_override:/ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/vehicle_manager build --build-base /ros_bridge/src/build/vehicle_manager/build install --record /ros_bridge/src/build/vehicle_manager/install.log --install-scripts $base/lib/vehicle_manager --single-version-externally-managed

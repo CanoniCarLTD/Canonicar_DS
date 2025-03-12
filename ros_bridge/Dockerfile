@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-c"]
 RUN apt update && apt install -y python3-pip
 
 RUN sudo apt install python3-colcon-common-extensions 
+RUN pip install openpyxl
 
 WORKDIR /ros_bridge
 

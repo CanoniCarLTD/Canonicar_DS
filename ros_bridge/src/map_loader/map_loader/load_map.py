@@ -7,6 +7,7 @@ from time import sleep
 import open3d as o3d
 import os
 import xml.etree.ElementTree as ET
+from std_msgs.msg import String
 
 
 class LoadMapNode(Node):
@@ -25,7 +26,11 @@ class LoadMapNode(Node):
         self.TRACK_LINE = self.get_parameter('TRACK_LINE').get_parameter_value().string_value
         self.TRACK_XODR = self.get_parameter('TRACK_XODR').get_parameter_value().string_value
         self.CARLA_SERVER_PORT = self.get_parameter('CARLA_SERVER_PORT').get_parameter_value().integer_value
-
+        self.start_vehicle_manager = self.create_publisher(
+            String, 
+            '/start_vehicle_manager', 
+            10)
+        
         # Validate parameters
         if not all([self.host, self.TRACK_LINE, self.TRACK_XODR]):
             self.get_logger().error("One or more required parameters are not set.")
@@ -34,13 +39,15 @@ class LoadMapNode(Node):
 
         # Initialize CARLA client and setup map
         try:
-            self.client = carla.Client(self.host, self.CARLA_SERVER_PORT)
+            self.client = carla.Client('5.29.228.0', self.CARLA_SERVER_PORT)
             self.client.set_timeout(10.0)
             self.get_logger().info(f"Connected to CARLA: {self.client.get_server_version()}")
             self.setup_map()
         except Exception as e:
             self.get_logger().error(f'Failed to initialize CARLA client: {e}')
             self.destroy_node()
+
+
 
     def setup_map(self):
         try:
@@ -70,6 +77,9 @@ class LoadMapNode(Node):
             # Visualize waypoints with better information
             self.visualize_track()
 
+            request_msg = String()
+            request_msg.data = "Map is loaded"
+            self.start_vehicle_manager.publish(request_msg)
             self.get_logger().info("Map setup complete.")
 
         except Exception as e:

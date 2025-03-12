@@ -1,0 +1,41 @@
+[0.662s] Invoking command in '/ros_bridge/src/client_node': AMENT_PREFIX_PATH=/ros_bridge/src/install/sensors_data:${AMENT_PREFIX_PATH} PYTHONPATH=/ros_bridge/src/build/client_node/prefix_override:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/client_node build --build-base /ros_bridge/src/build/client_node/build install --record /ros_bridge/src/build/client_node/install.log --single-version-externally-managed
+[0.837s] running egg_info
+[0.837s] creating ../build/client_node/client_node.egg-info
+[0.837s] writing ../build/client_node/client_node.egg-info/PKG-INFO
+[0.838s] writing dependency_links to ../build/client_node/client_node.egg-info/dependency_links.txt
+[0.838s] writing entry points to ../build/client_node/client_node.egg-info/entry_points.txt
+[0.838s] writing requirements to ../build/client_node/client_node.egg-info/requires.txt
+[0.838s] writing top-level names to ../build/client_node/client_node.egg-info/top_level.txt
+[0.839s] writing manifest file '../build/client_node/client_node.egg-info/SOURCES.txt'
+[0.866s] reading manifest file '../build/client_node/client_node.egg-info/SOURCES.txt'
+[0.866s] writing manifest file '../build/client_node/client_node.egg-info/SOURCES.txt'
+[0.866s] running build
+[0.867s] running build_py
+[0.867s] creating /ros_bridge/src/build/client_node/build
+[0.867s] creating /ros_bridge/src/build/client_node/build/lib
+[0.867s] creating /ros_bridge/src/build/client_node/build/lib/client_node
+[0.867s] copying client_node/__init__.py -> /ros_bridge/src/build/client_node/build/lib/client_node
+[0.867s] copying client_node/spawn_vehicle.py -> /ros_bridge/src/build/client_node/build/lib/client_node
+[0.867s] running install
+[0.868s] running install_lib
+[0.869s] creating /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node
+[0.869s] copying /ros_bridge/src/build/client_node/build/lib/client_node/__init__.py -> /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node
+[0.869s] copying /ros_bridge/src/build/client_node/build/lib/client_node/spawn_vehicle.py -> /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node
+[0.870s] byte-compiling /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node/__init__.py to __init__.cpython-38.pyc
+[0.870s] byte-compiling /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node/spawn_vehicle.py to spawn_vehicle.cpython-38.pyc
+[0.873s] running install_data
+[0.873s] creating /ros_bridge/src/install/client_node/share/ament_index
+[0.873s] creating /ros_bridge/src/install/client_node/share/ament_index/resource_index
+[0.874s] creating /ros_bridge/src/install/client_node/share/ament_index/resource_index/packages
+[0.874s] copying resource/client_node -> /ros_bridge/src/install/client_node/share/ament_index/resource_index/packages
+[0.874s] copying package.xml -> /ros_bridge/src/install/client_node/share/client_node
+[0.874s] creating /ros_bridge/src/install/client_node/share/client_node/launch
+[0.874s] copying launch/spawn_vehicle_launch.py -> /ros_bridge/src/install/client_node/share/client_node/launch
+[0.874s] creating /ros_bridge/src/install/client_node/share/client_node/client_node
+[0.874s] copying client_node/sensors_config.json -> /ros_bridge/src/install/client_node/share/client_node/client_node
+[0.874s] running install_egg_info
+[0.876s] Copying ../build/client_node/client_node.egg-info to /ros_bridge/src/install/client_node/lib/python3.8/site-packages/client_node-0.0.0-py3.8.egg-info
+[0.876s] running install_scripts
+[0.893s] Installing spawn_vehicle_node script to /ros_bridge/src/install/client_node/lib/client_node
+[0.893s] writing list of installed files to '/ros_bridge/src/build/client_node/install.log'
+[0.925s] Invoked command in '/ros_bridge/src/client_node' returned '0': AMENT_PREFIX_PATH=/ros_bridge/src/install/sensors_data:${AMENT_PREFIX_PATH} PYTHONPATH=/ros_bridge/src/build/client_node/prefix_override:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/client_node build --build-base /ros_bridge/src/build/client_node/build install --record /ros_bridge/src/build/client_node/install.log --single-version-externally-managed

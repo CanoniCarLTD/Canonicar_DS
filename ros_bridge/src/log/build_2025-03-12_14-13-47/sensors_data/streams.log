@@ -1,0 +1,20 @@
+[1.253s] Invoking command in '/ros_bridge/src/sensors_data': PYTHONPATH=/ros_bridge/src/build/sensors_data/prefix_override:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/sensors_data build --build-base /ros_bridge/src/build/sensors_data/build install --record /ros_bridge/src/build/sensors_data/install.log --single-version-externally-managed
+[1.467s] running egg_info
+[1.469s] writing ../build/sensors_data/sensors_data.egg-info/PKG-INFO
+[1.469s] writing dependency_links to ../build/sensors_data/sensors_data.egg-info/dependency_links.txt
+[1.469s] writing entry points to ../build/sensors_data/sensors_data.egg-info/entry_points.txt
+[1.469s] writing requirements to ../build/sensors_data/sensors_data.egg-info/requires.txt
+[1.469s] writing top-level names to ../build/sensors_data/sensors_data.egg-info/top_level.txt
+[1.519s] reading manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+[1.519s] writing manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+[1.519s] running build
+[1.519s] running build_py
+[1.520s] running install
+[1.521s] running install_lib
+[1.522s] running install_data
+[1.522s] running install_egg_info
+[1.524s] removing '/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data-0.0.0-py3.8.egg-info' (and everything under it)
+[1.524s] Copying ../build/sensors_data/sensors_data.egg-info to /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data-0.0.0-py3.8.egg-info
+[1.524s] running install_scripts
+[1.560s] writing list of installed files to '/ros_bridge/src/build/sensors_data/install.log'
+[1.607s] Invoked command in '/ros_bridge/src/sensors_data' returned '0': PYTHONPATH=/ros_bridge/src/build/sensors_data/prefix_override:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/sensors_data build --build-base /ros_bridge/src/build/sensors_data/build install --record /ros_bridge/src/build/sensors_data/install.log --single-version-externally-managed

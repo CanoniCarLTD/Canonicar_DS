@@ -1,0 +1,19 @@
+running egg_info
+writing ../build/map_loader/map_loader.egg-info/PKG-INFO
+writing dependency_links to ../build/map_loader/map_loader.egg-info/dependency_links.txt
+writing entry points to ../build/map_loader/map_loader.egg-info/entry_points.txt
+writing requirements to ../build/map_loader/map_loader.egg-info/requires.txt
+writing top-level names to ../build/map_loader/map_loader.egg-info/top_level.txt
+reading manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'
+writing manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../build/map_loader/map_loader.egg-info to /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader-0.0.0-py3.8.egg-info
+running install_scripts
+Installing load_map_node script to /ros_bridge/src/install/map_loader/lib/map_loader
+writing list of installed files to '/ros_bridge/src/build/map_loader/install.log'

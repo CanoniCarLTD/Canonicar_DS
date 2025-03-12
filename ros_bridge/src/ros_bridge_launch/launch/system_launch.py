@@ -88,7 +88,7 @@ def generate_launch_description():
         package='data_collector_node',
         executable='data_collector',
         name='data_collector_node',
-        output='screen'
+        output='screen',
     )
 
     delayed_data_collector = TimerAction(
@@ -102,6 +102,7 @@ def generate_launch_description():
         name='data_process_node',
         output='screen'
     )
+
 
 
     ld = LaunchDescription()

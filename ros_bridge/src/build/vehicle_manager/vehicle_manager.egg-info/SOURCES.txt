@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../build/vehicle_manager/vehicle_manager.egg-info/PKG-INFO
+../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt
+../build/vehicle_manager/vehicle_manager.egg-info/dependency_links.txt
+../build/vehicle_manager/vehicle_manager.egg-info/entry_points.txt
+../build/vehicle_manager/vehicle_manager.egg-info/requires.txt
+../build/vehicle_manager/vehicle_manager.egg-info/top_level.txt
+../build/vehicle_manager/vehicle_manager.egg-info/zip-safe
+resource/vehicle_manager
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
+vehicle_manager/__init__.py
+vehicle_manager/vehicle_manager_node.py

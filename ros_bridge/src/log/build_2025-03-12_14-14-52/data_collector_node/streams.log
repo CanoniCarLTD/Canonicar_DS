@@ -1,0 +1,21 @@
+[1.452s] Invoking command in '/ros_bridge/src/data_collector_node': PYTHONPATH=/ros_bridge/src/build/data_collector_node/prefix_override:/ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/data_collector_node build --build-base /ros_bridge/src/build/data_collector_node/build install --record /ros_bridge/src/build/data_collector_node/install.log --single-version-externally-managed
+[1.637s] running egg_info
+[1.639s] writing ../build/data_collector_node/data_collector_node.egg-info/PKG-INFO
+[1.639s] writing dependency_links to ../build/data_collector_node/data_collector_node.egg-info/dependency_links.txt
+[1.639s] writing entry points to ../build/data_collector_node/data_collector_node.egg-info/entry_points.txt
+[1.639s] writing requirements to ../build/data_collector_node/data_collector_node.egg-info/requires.txt
+[1.639s] writing top-level names to ../build/data_collector_node/data_collector_node.egg-info/top_level.txt
+[1.673s] reading manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'
+[1.674s] writing manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'
+[1.675s] running build
+[1.675s] running build_py
+[1.675s] running install
+[1.675s] running install_lib
+[1.675s] running install_data
+[1.680s] running install_egg_info
+[1.680s] removing '/ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node-0.0.0-py3.8.egg-info' (and everything under it)
+[1.680s] Copying ../build/data_collector_node/data_collector_node.egg-info to /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node-0.0.0-py3.8.egg-info
+[1.680s] running install_scripts
+[1.694s] Installing data_collector script to /ros_bridge/src/install/data_collector_node/lib/data_collector_node
+[1.694s] writing list of installed files to '/ros_bridge/src/build/data_collector_node/install.log'
+[1.721s] Invoked command in '/ros_bridge/src/data_collector_node' returned '0': PYTHONPATH=/ros_bridge/src/build/data_collector_node/prefix_override:/ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/data_collector_node build --build-base /ros_bridge/src/build/data_collector_node/build install --record /ros_bridge/src/build/data_collector_node/install.log --single-version-externally-managed
