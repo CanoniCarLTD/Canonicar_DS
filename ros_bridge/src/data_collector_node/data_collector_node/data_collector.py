@@ -35,6 +35,19 @@ class DataCollector(Node):
                 10
             )
 
+                    # Start to deploy vehicles after map is loaded
+            
+            self.start_vehicle_manager = self.create_publisher(
+            String, 
+            '/start_vehicle_manager', 
+            10)
+            self.lap_subscription = self.create_subscription(
+                String,
+                '/lap_completed',  # Topic name for lap completion
+                self.lap_ending_callback,  # Callback function
+                10  # QoS
+            )
+
         except Exception as e:
             self.get_logger().error(f"Error connecting to CARLA server: {e}")
             return
@@ -51,6 +64,19 @@ class DataCollector(Node):
 
         self.setup_subscribers()
         self.get_logger().info("DataCollector Node initialized.")
+
+    def lap_ending_callback(self, msg):
+        """Callback function for lap completion."""
+        self.get_logger().info("Lap completed.")
+        self.throttle_sum = 0.0
+        self.brake_sum = 0.0
+        self.steering_sum = 0.0
+        self.fuel_consumption = 0.0
+        request_msg = String()
+        request_msg.data = "DataCollector is ready"
+        self.start_vehicle_manager.publish(request_msg)
+        self.get_logger().info("Data collector is ready to start the next lap.")
+
 
     def setup_subscribers(self):
         qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)

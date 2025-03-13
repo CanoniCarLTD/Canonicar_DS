@@ -26,6 +26,8 @@ class LoadMapNode(Node):
         self.TRACK_LINE = self.get_parameter('TRACK_LINE').get_parameter_value().string_value
         self.TRACK_XODR = self.get_parameter('TRACK_XODR').get_parameter_value().string_value
         self.CARLA_SERVER_PORT = self.get_parameter('CARLA_SERVER_PORT').get_parameter_value().integer_value
+        
+        # Start to deploy vehicles after map is loaded
         self.start_vehicle_manager = self.create_publisher(
             String, 
             '/start_vehicle_manager', 
@@ -39,15 +41,13 @@ class LoadMapNode(Node):
 
         # Initialize CARLA client and setup map
         try:
-            self.client = carla.Client('5.29.228.0', self.CARLA_SERVER_PORT)
+            self.client = carla.Client(self.host, self.CARLA_SERVER_PORT)
             self.client.set_timeout(10.0)
             self.get_logger().info(f"Connected to CARLA: {self.client.get_server_version()}")
             self.setup_map()
         except Exception as e:
             self.get_logger().error(f'Failed to initialize CARLA client: {e}')
             self.destroy_node()
-
-
 
     def setup_map(self):
         try:
@@ -74,13 +74,13 @@ class LoadMapNode(Node):
             bounds = self.get_map_bounds()
             self.get_logger().info(f"Map bounds: {bounds}")
 
-            # Visualize waypoints with better information
-            self.visualize_track()
-
             request_msg = String()
             request_msg.data = "Map is loaded"
             self.start_vehicle_manager.publish(request_msg)
             self.get_logger().info("Map setup complete.")
+
+            # Visualize waypoints with better information
+            self.visualize_track()
 
         except Exception as e:
             self.get_logger().error(f'Error during map setup: {e}')

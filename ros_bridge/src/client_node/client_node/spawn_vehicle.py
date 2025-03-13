@@ -54,17 +54,17 @@ class SpawnVehicleNode(Node):
         self.sensor_config_file = os.path.join(
             get_package_share_directory('client_node'), 'client_node', 'sensors_config.json'
         )
-        qos_profile = QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE)
 
-        self.physics_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/physics', 10)
+        self.physics_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/physics', 10) # To data_collector node
         self.timer = self.create_timer(0.1, self.publish_vehicle_physics)
-        self.control_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/control', 10)
+        self.control_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/control', 10) # To data_collector node
         self.timer = self.create_timer(0.1, self.publish_vehicle_control)
-        self.location_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/location', 10)
+        self.location_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/location', 10) # To data_process node
         self.timer = self.create_timer(0.1, self.publish_vehicle_location)
-        self.vehicle_data_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/data', 10)
-        # self.timer = self.create_timer(0.1, self.publish_vehicle_data)
+        self.vehicle_type_publisher = self.create_publisher(String, '/carla/vehicle/type', 10) # To data_collector node       
+        
         self.vehicle = None
+
         self.lap_subscription = self.create_subscription(
             String,
             '/lap_completed',  # Topic name for lap completion
@@ -73,13 +73,16 @@ class SpawnVehicleNode(Node):
         )
         self.start_subscription = self.create_subscription(
             String,
-            '/start_vehicle_manager',  # Topic name for lap completion
-            self.lap_callback,  # Callback function
+            '/start_vehicle_manager',
+            self.start_driving,
             10  # QoS
         )
+        self.data_collector_ready = False
+        self.map_loaded = False
+        
         self.vehicle_types = [
     "vehicle.audi.a2",
-    "vehicle.chevrolet.impala",
+    # "vehicle.chevrolet.impala",
     "vehicle.citroen.c3",
     "vehicle.micro.microlino",
     "vehicle.dodge.charger_police",
@@ -121,38 +124,22 @@ class SpawnVehicleNode(Node):
         self.current_vehicle_index = 0  # To keep track of which vehicle to spawn next
         self.spawn_objects_from_config()
 
+    def start_driving(self, msg):
+        self.get_logger().info(f"Received start signal: {msg.data}")
+        if msg.data == "Map is loaded":
+            self.map_loaded = True
+        if msg.data == "DataCollector is ready":
+            self.data_collector_ready = True
+        if self.map_loaded and self.data_collector_ready:
+            self.get_logger().info("Starting to drive")
+            self.spawn_objects_from_config()
+
     def lap_callback(self, msg):
+        self.data_collector_ready = False
         self.get_logger().info(f"Lap completed! Destroy vehicle {self.vehicle_type}")
         self.destroy_actors()
         self.vehicle_type = self.vehicle_types[self.current_vehicle_index]
-        self.current_vehicle_index = (self.current_vehicle_index + 1) % len(self.vehicle_types)
-        self.spawn_objects_from_config()
-
-    def publish_vehicle_data(self):
-        if self.vehicle is not None and self.vehicle.is_alive:
-            physics_control = self.vehicle.get_physics_control()
-            wheels = physics_control.wheels
-            msg = Float32MultiArray()
-            data = [
-            float(physics_control.mass),
-            float(physics_control.drag_coefficient),
-            float(physics_control.center_of_mass.x),
-            float(physics_control.center_of_mass.y),
-            float(physics_control.center_of_mass.z),
-            float(physics_control.max_rpm),
-            float(physics_control.moi),
-            float(physics_control.clutch_strength),
-            float(physics_control.gear_switch_time),
-            float(wheels[0].tire_friction),
-            float(wheels[0].damping_rate),
-            float(wheels[0].max_steer_angle),
-            float(wheels[0].radius),
-            float(wheels[0].max_brake_torque)
-        ]
-        
-        # Ensure all values are actually float type
-        msg.data = [float(val) for val in data]
-        self.vehicle_data_publisher.publish(msg)
+        self.current_vehicle_index = (self.current_vehicle_index + 1) % len(self.vehicle_types)     
 
     def publish_vehicle_location(self):
         if self.vehicle is not None and self.vehicle.is_alive:
@@ -164,7 +151,6 @@ class SpawnVehicleNode(Node):
     def publish_vehicle_control(self):
         if self.vehicle is not None and self.vehicle.is_alive:
             control = self.vehicle.get_control()
-            # self.get_logger().info(f"Throttle: {control.throttle}, Steer: {control.steer}, Brake: {control.brake}")
             msg = Float32MultiArray()
             msg.data = [control.throttle, control.steer, control.brake]
             self.control_publisher.publish(msg)
@@ -182,6 +168,7 @@ class SpawnVehicleNode(Node):
         # Add delay to ensure map is fully loaded
         self.get_logger().info("Waiting for map to fully load...")
         time.sleep(2.0)
+        self.get_logger().info("Spawning vehicle type " + self.vehicle_type)
 
         try:
             # Load vehicle configuration
@@ -246,9 +233,7 @@ class SpawnVehicleNode(Node):
             
             location = self.vehicle.get_location()
             self.get_logger().info(f"Spawned vehicle at {location}")
-            self.get_logger().info(f"Spawned vehicle at {self.vehicle.get_location()}")
-            self.get_logger().info(f"Spawned X at {self.vehicle.get_location().x}")
-            self.get_logger().info(f"Spawned y at {location.x}")
+
             # Add collision sensor for debugging
             collision_bp = blueprint_library.find('sensor.other.collision')
             if collision_bp:
@@ -262,12 +247,8 @@ class SpawnVehicleNode(Node):
 
             # Configure physics for stability
             physics_control = self.vehicle.get_physics_control()
-            # self.get_logger().info(f"Original mass: {physics_control}")
             physics_control.mass = physics_control.mass * 1.5
             self.vehicle.apply_physics_control(physics_control)
-
-            # self.get_logger().info(f"Published Physics: Mass={physics_control.mass} kg, Drag Coeff={physics_control.drag_coefficient}")
-
             # Spawn sensors
             sensors = ego_object.get("sensors", [])
             if sensors:
@@ -279,6 +260,11 @@ class SpawnVehicleNode(Node):
             self.traffic_manager.random_left_lanechange_percentage(self.vehicle, 0)
             self.traffic_manager.random_right_lanechange_percentage(self.vehicle, 0)
             self.vehicle.set_autopilot(True, self.traffic_manager.get_port())
+
+            # Publish vehicle type for data process
+            request_msg = String()
+            request_msg.data = self.vehicle_type
+            self.vehicle_type_publisher.publish(request_msg)
 
         except Exception as e:
             self.get_logger().error(f"Error spawning vehicle: {e}")

@@ -30,12 +30,10 @@ class DataProcessNode(Node):
         self.data_lock = threading.Lock()
         self.lap_data = []
         self.lap_time = 0.0
-
-        self.vehicle_data = None
+        self.vehicle_type = None
         self.current_lap_vehicle_data = []
         
         self.location_subscriber = self.create_subscription(Float32MultiArray, '/carla/vehicle/location', self.location_callback,10)
-        self.vehicle_data_subscriber = self.create_subscription(Float32MultiArray, '/carla/vehicle/data', self.vehicle_data_callback, 10)
         
         # For communicating with data_collector
         self.get_data_publisher = self.create_publisher(
@@ -48,21 +46,21 @@ class DataProcessNode(Node):
             '/carla/collector_data',
             self.data_callback,
             10)
-        
         self.lap_completed_publisher = self.create_publisher(
             String,
             '/lap_completed',
             10)
-        self.lap2_completed_publisher = self.create_publisher(
+        self.vehicle_type_subscriber = self.create_subscription(
             String,
-            '/lap2_completed',
+            '/carla/vehicle/type',
+            self.vehicle_type_callback,
             10)
+        
         self.get_logger().info("DataProcess Node setup complete")
 
-    def vehicle_data_callback(self, msg):
-        """Process vehicle data"""
-        self.vehicle_data = msg.data
-    
+    def vehicle_type_callback(self, msg):
+        self.vehicle_type = msg.data
+        
     def location_callback(self, msg):
         """Process vehicle location data"""
         self.vehicle_location = msg.data
@@ -105,7 +103,6 @@ class DataProcessNode(Node):
         self.get_logger().info("Requesting data from collector...")
         self.get_data_publisher.publish(request_msg)
         self.lap_completed_publisher.publish(request_msg)
-        self.lap2_completed_publisher.publish(request_msg)
         
     def data_callback(self, msg):
         """Handle data received from data collector"""
@@ -116,8 +113,6 @@ class DataProcessNode(Node):
                 
                 # Add lap number to data
                 data_dict["lap_number"] = self.lap_count
-                if self.vehicle_data is not None:
-                    data_dict["vehicle_physics"] = list(self.vehicle_data)
                 
                 self.lap_data.append(data_dict)
                 # Save data after each lap
@@ -140,7 +135,7 @@ class DataProcessNode(Node):
             os.makedirs(data_dir, exist_ok=True)
             
             # Use a fixed filename instead of timestamp-based name
-            filename = os.path.join(data_dir, "lap_data.xlsx")
+            filename = os.path.join(data_dir, "lap_data3.xlsx")
             
             # Process only the most recent lap data
             lap_entry = self.lap_data[-1]
@@ -155,26 +150,6 @@ class DataProcessNode(Node):
                 'total_brake': lap_entry['total_brake']
             }
 
-            # Add vehicle physics data if available
-            if 'vehicle_physics' in lap_entry and len(lap_entry['vehicle_physics']) >= 14:
-                self.get_logger().info("Adding vehicle physics data to Excel")
-                vp = lap_entry['vehicle_physics']
-                entry.update({
-                    'mass': vp[0],                   
-                    'drag_coefficient': vp[1],       
-                    'center_of_mass_x': vp[2],       
-                    'center_of_mass_y': vp[3],       
-                    'center_of_mass_z': vp[4],       
-                    'max_rpm': vp[5],                
-                    'moment_of_inertia': vp[6],      
-                    'clutch_strength': vp[7],        
-                    'gear_switch_time': vp[8],       
-                    'tire_friction': vp[9],        
-                    'damping_rate': vp[10],          
-                    'max_steer_angle': vp[11],        
-                    'wheel_radius': vp[12],          
-                    'max_brake_torque': vp[13]     
-                })
                         
             # Add IMU data (acceleration, angular velocity)
             if 'imu' in lap_entry:
@@ -202,6 +177,7 @@ class DataProcessNode(Node):
             
             # Add timestamp for reference
             entry['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            entry['vehicle_type'] = self.vehicle_type
             
             # Create DataFrame for new lap data
             df_new = pd.DataFrame([entry])  # Just one row for the new lap
