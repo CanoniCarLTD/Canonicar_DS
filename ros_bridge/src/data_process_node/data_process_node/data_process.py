@@ -40,7 +40,6 @@ class DataProcessNode(Node):
             String, 
             '/carla/data_request', 
             10)
-        
         self.data_subscriber = self.create_subscription(
             String,
             '/carla/collector_data',
