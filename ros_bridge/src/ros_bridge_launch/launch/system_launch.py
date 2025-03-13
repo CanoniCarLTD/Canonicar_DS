@@ -110,7 +110,7 @@ def generate_launch_description():
     ld.add_action(port_arg)
     ld.add_action(run_load_map_node)
     ld.add_action(spawn_vehicle_launch)
-    ld.add_action(delayed_data_collector)
+    ld.add_action(data_collector_node)
     ld.add_action(data_process_node)
     
     return ld

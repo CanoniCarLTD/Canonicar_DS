@@ -75,7 +75,7 @@ class DataProcessNode(Node):
             return
 
         distance = self.calculate_distance(self.start_point, self.vehicle_location)
-        self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
+        # self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
         if distance < 1:
             if not self.lap_completed:
                 self.lap_completed = True

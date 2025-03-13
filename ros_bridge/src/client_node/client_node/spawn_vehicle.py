@@ -133,6 +133,7 @@ class SpawnVehicleNode(Node):
         if self.map_loaded and self.data_collector_ready:
             self.get_logger().info("Starting to drive")
             self.spawn_objects_from_config()
+        self.get_logger().info(f"Is map laoded?: {self.map_loaded}, Is data collector ready {self.data_collector_ready}")
 
     def lap_callback(self, msg):
         self.data_collector_ready = False
