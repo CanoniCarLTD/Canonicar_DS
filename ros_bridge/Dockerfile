@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-c"]
 RUN apt update && apt install -y python3-pip
 
 RUN sudo apt install python3-colcon-common-extensions 
+RUN pip install openpyxl
 
 WORKDIR /ros_bridge
 
@@ -20,7 +21,7 @@ COPY setup_ros.sh /ros_bridge/
 # Upgrade pip and install Python dependencies
 # WORKDIR /ros_bridge
 # Source ROS 2 setup and build the workspace
-RUN python3 -m pip install --upgrade pip && python3 -m pip install numpy pygame python-dotenv torch torchvision
+RUN python3 -m pip install --upgrade pip && python3 -m pip install numpy pygame python-dotenv torch torchvision openpyxl
 
 RUN rm -rf /usr/lib/python3/dist-packages/PyYAML-5.3.1.egg-info && rm -rf /usr/lib/python3/dist-packages/yaml && python3 -m pip install pyyaml open3d
 RUN python3 -m pip install 'carla==0.9.13'

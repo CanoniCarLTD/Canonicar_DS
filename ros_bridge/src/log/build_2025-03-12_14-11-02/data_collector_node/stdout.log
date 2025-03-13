@@ -1,0 +1,35 @@
+running egg_info
+creating ../build/data_collector_node/data_collector_node.egg-info
+writing ../build/data_collector_node/data_collector_node.egg-info/PKG-INFO
+writing dependency_links to ../build/data_collector_node/data_collector_node.egg-info/dependency_links.txt
+writing entry points to ../build/data_collector_node/data_collector_node.egg-info/entry_points.txt
+writing requirements to ../build/data_collector_node/data_collector_node.egg-info/requires.txt
+writing top-level names to ../build/data_collector_node/data_collector_node.egg-info/top_level.txt
+writing manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'
+reading manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'
+writing manifest file '../build/data_collector_node/data_collector_node.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /ros_bridge/src/build/data_collector_node/build
+creating /ros_bridge/src/build/data_collector_node/build/lib
+creating /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node
+copying data_collector_node/__init__.py -> /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node
+copying data_collector_node/data_collector.py -> /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node
+running install
+running install_lib
+creating /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node
+copying /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node/__init__.py -> /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node
+copying /ros_bridge/src/build/data_collector_node/build/lib/data_collector_node/data_collector.py -> /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node
+byte-compiling /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node/__init__.py to __init__.cpython-38.pyc
+byte-compiling /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node/data_collector.py to data_collector.cpython-38.pyc
+running install_data
+creating /ros_bridge/src/install/data_collector_node/share/ament_index
+creating /ros_bridge/src/install/data_collector_node/share/ament_index/resource_index
+creating /ros_bridge/src/install/data_collector_node/share/ament_index/resource_index/packages
+copying resource/data_collector_node -> /ros_bridge/src/install/data_collector_node/share/ament_index/resource_index/packages
+copying package.xml -> /ros_bridge/src/install/data_collector_node/share/data_collector_node
+running install_egg_info
+Copying ../build/data_collector_node/data_collector_node.egg-info to /ros_bridge/src/install/data_collector_node/lib/python3.8/site-packages/data_collector_node-0.0.0-py3.8.egg-info
+running install_scripts
+Installing data_collector script to /ros_bridge/src/install/data_collector_node/lib/data_collector_node
+writing list of installed files to '/ros_bridge/src/build/data_collector_node/install.log'

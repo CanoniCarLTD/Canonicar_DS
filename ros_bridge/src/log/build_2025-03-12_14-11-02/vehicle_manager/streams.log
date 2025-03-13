@@ -1,0 +1,36 @@
+[1.225s] Invoking command in '/ros_bridge/src/vehicle_manager': PYTHONPATH=/ros_bridge/src/build/vehicle_manager/prefix_override:/ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/vehicle_manager build --build-base /ros_bridge/src/build/vehicle_manager/build install --record /ros_bridge/src/build/vehicle_manager/install.log --install-scripts $base/lib/vehicle_manager --single-version-externally-managed
+[1.456s] running egg_info
+[1.457s] creating ../build/vehicle_manager/vehicle_manager.egg-info
+[1.468s] writing ../build/vehicle_manager/vehicle_manager.egg-info/PKG-INFO
+[1.468s] writing dependency_links to ../build/vehicle_manager/vehicle_manager.egg-info/dependency_links.txt
+[1.468s] writing entry points to ../build/vehicle_manager/vehicle_manager.egg-info/entry_points.txt
+[1.468s] writing requirements to ../build/vehicle_manager/vehicle_manager.egg-info/requires.txt
+[1.468s] writing top-level names to ../build/vehicle_manager/vehicle_manager.egg-info/top_level.txt
+[1.468s] writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+[1.497s] reading manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+[1.498s] writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+[1.498s] running build
+[1.498s] running build_py
+[1.498s] creating /ros_bridge/src/build/vehicle_manager/build
+[1.501s] creating /ros_bridge/src/build/vehicle_manager/build/lib
+[1.501s] creating /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager
+[1.501s] copying vehicle_manager/__init__.py -> /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager
+[1.501s] copying vehicle_manager/vehicle_manager_node.py -> /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager
+[1.501s] running install
+[1.502s] running install_lib
+[1.503s] creating /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager
+[1.505s] copying /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager/__init__.py -> /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager
+[1.505s] copying /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager/vehicle_manager_node.py -> /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager
+[1.505s] byte-compiling /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager/__init__.py to __init__.cpython-38.pyc
+[1.507s] byte-compiling /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager/vehicle_manager_node.py to vehicle_manager_node.cpython-38.pyc
+[1.507s] running install_data
+[1.508s] creating /ros_bridge/src/install/vehicle_manager/share/ament_index
+[1.508s] creating /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index
+[1.508s] creating /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index/packages
+[1.508s] copying resource/vehicle_manager -> /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index/packages
+[1.509s] copying package.xml -> /ros_bridge/src/install/vehicle_manager/share/vehicle_manager
+[1.509s] running install_egg_info
+[1.512s] Copying ../build/vehicle_manager/vehicle_manager.egg-info to /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager-0.0.0-py3.8.egg-info
+[1.513s] running install_scripts
+[1.536s] writing list of installed files to '/ros_bridge/src/build/vehicle_manager/install.log'
+[1.574s] Invoked command in '/ros_bridge/src/vehicle_manager' returned '0': PYTHONPATH=/ros_bridge/src/build/vehicle_manager/prefix_override:/ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/vehicle_manager build --build-base /ros_bridge/src/build/vehicle_manager/build install --record /ros_bridge/src/build/vehicle_manager/install.log --install-scripts $base/lib/vehicle_manager --single-version-externally-managed

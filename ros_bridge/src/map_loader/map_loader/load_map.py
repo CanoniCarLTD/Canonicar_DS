@@ -7,6 +7,7 @@ from time import sleep
 import open3d as o3d
 import os
 import xml.etree.ElementTree as ET
+from std_msgs.msg import String
 
 
 class LoadMapNode(Node):
@@ -25,7 +26,13 @@ class LoadMapNode(Node):
         self.TRACK_LINE = self.get_parameter('TRACK_LINE').get_parameter_value().string_value
         self.TRACK_XODR = self.get_parameter('TRACK_XODR').get_parameter_value().string_value
         self.CARLA_SERVER_PORT = self.get_parameter('CARLA_SERVER_PORT').get_parameter_value().integer_value
-
+        
+        # Start to deploy vehicles after map is loaded
+        self.start_vehicle_manager = self.create_publisher(
+            String, 
+            '/start_vehicle_manager', 
+            10)
+        
         # Validate parameters
         if not all([self.host, self.TRACK_LINE, self.TRACK_XODR]):
             self.get_logger().error("One or more required parameters are not set.")
@@ -67,10 +74,13 @@ class LoadMapNode(Node):
             bounds = self.get_map_bounds()
             self.get_logger().info(f"Map bounds: {bounds}")
 
+            request_msg = String()
+            request_msg.data = "Map is loaded"
+            self.start_vehicle_manager.publish(request_msg)
+            self.get_logger().info("Map setup complete.")
+
             # Visualize waypoints with better information
             self.visualize_track()
-
-            self.get_logger().info("Map setup complete.")
 
         except Exception as e:
             self.get_logger().error(f'Error during map setup: {e}')

@@ -1,0 +1,3 @@
+[console_scripts]
+load_map_node = map_loader.load_map:main
+

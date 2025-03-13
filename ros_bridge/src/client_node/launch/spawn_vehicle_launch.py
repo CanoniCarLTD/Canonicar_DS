@@ -7,6 +7,7 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 def generate_launch_description():
+    # Declare launch arguments for host, port, sensor config, and vehicle type
     host_arg = DeclareLaunchArgument(
         'host',
         default_value='localhost',
@@ -29,6 +30,13 @@ def generate_launch_description():
         description='Path to the sensors_config.json file'
     )
 
+    vehicle_type_arg = DeclareLaunchArgument(
+        'vehicle_type',
+        default_value="vehicle.audi.a2",  # Default vehicle type
+        description='Type of vehicle to spawn'
+    )
+
+    # Define the spawn_vehicle_node with the added vehicle_type parameter
     spawn_vehicle_node = Node(
         package='client_node',
         executable='spawn_vehicle_node',
@@ -37,13 +45,16 @@ def generate_launch_description():
         parameters=[
             {'host': LaunchConfiguration('host')},
             {'port': LaunchConfiguration('port')},
-            {'sensor_config_file': LaunchConfiguration('sensor_config')}
+            {'sensor_config_file': LaunchConfiguration('sensor_config')},
+            {'vehicle_type': LaunchConfiguration('vehicle_type')} 
         ]
     )
 
+    # Return the LaunchDescription with all the actions
     return LaunchDescription([
         host_arg,
         port_arg,
         sensor_config_arg,
+        vehicle_type_arg,  # Add the vehicle_type argument
         spawn_vehicle_node
     ])

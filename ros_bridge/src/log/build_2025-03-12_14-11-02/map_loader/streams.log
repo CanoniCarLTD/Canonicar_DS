@@ -1,0 +1,39 @@
+[0.803s] Invoking command in '/ros_bridge/src/map_loader': AMENT_PREFIX_PATH=/ros_bridge/src/install/client_node:/ros_bridge/src/install/sensors_data:${AMENT_PREFIX_PATH} PYTHONPATH=/ros_bridge/src/build/map_loader/prefix_override:/ros_bridge/src/install/map_loader/lib/python3.8/site-packages:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/map_loader build --build-base /ros_bridge/src/build/map_loader/build install --record /ros_bridge/src/build/map_loader/install.log --single-version-externally-managed
+[0.976s] running egg_info
+[0.979s] creating ../build/map_loader/map_loader.egg-info
+[0.979s] writing ../build/map_loader/map_loader.egg-info/PKG-INFO
+[0.979s] writing dependency_links to ../build/map_loader/map_loader.egg-info/dependency_links.txt
+[0.979s] writing entry points to ../build/map_loader/map_loader.egg-info/entry_points.txt
+[0.979s] writing requirements to ../build/map_loader/map_loader.egg-info/requires.txt
+[0.979s] writing top-level names to ../build/map_loader/map_loader.egg-info/top_level.txt
+[0.979s] writing manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'
+[1.007s] reading manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'
+[1.008s] writing manifest file '../build/map_loader/map_loader.egg-info/SOURCES.txt'
+[1.008s] running build
+[1.008s] running build_py
+[1.008s] creating /ros_bridge/src/build/map_loader/build
+[1.008s] creating /ros_bridge/src/build/map_loader/build/lib
+[1.008s] creating /ros_bridge/src/build/map_loader/build/lib/map_loader
+[1.008s] copying map_loader/__init__.py -> /ros_bridge/src/build/map_loader/build/lib/map_loader
+[1.009s] copying map_loader/load_map.py -> /ros_bridge/src/build/map_loader/build/lib/map_loader
+[1.009s] running install
+[1.011s] running install_lib
+[1.011s] creating /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader
+[1.011s] copying /ros_bridge/src/build/map_loader/build/lib/map_loader/__init__.py -> /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader
+[1.011s] copying /ros_bridge/src/build/map_loader/build/lib/map_loader/load_map.py -> /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader
+[1.011s] byte-compiling /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader/__init__.py to __init__.cpython-38.pyc
+[1.015s] byte-compiling /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader/load_map.py to load_map.cpython-38.pyc
+[1.015s] running install_data
+[1.015s] creating /ros_bridge/src/install/map_loader/share/ament_index
+[1.015s] creating /ros_bridge/src/install/map_loader/share/ament_index/resource_index
+[1.015s] creating /ros_bridge/src/install/map_loader/share/ament_index/resource_index/packages
+[1.015s] copying resource/map_loader -> /ros_bridge/src/install/map_loader/share/ament_index/resource_index/packages
+[1.015s] copying package.xml -> /ros_bridge/src/install/map_loader/share/map_loader
+[1.015s] creating /ros_bridge/src/install/map_loader/share/map_loader/map_loader
+[1.015s] copying map_loader/generatedTrack.xodr -> /ros_bridge/src/install/map_loader/share/map_loader/map_loader
+[1.015s] running install_egg_info
+[1.017s] Copying ../build/map_loader/map_loader.egg-info to /ros_bridge/src/install/map_loader/lib/python3.8/site-packages/map_loader-0.0.0-py3.8.egg-info
+[1.017s] running install_scripts
+[1.040s] Installing load_map_node script to /ros_bridge/src/install/map_loader/lib/map_loader
+[1.040s] writing list of installed files to '/ros_bridge/src/build/map_loader/install.log'
+[1.075s] Invoked command in '/ros_bridge/src/map_loader' returned '0': AMENT_PREFIX_PATH=/ros_bridge/src/install/client_node:/ros_bridge/src/install/sensors_data:${AMENT_PREFIX_PATH} PYTHONPATH=/ros_bridge/src/build/map_loader/prefix_override:/ros_bridge/src/install/map_loader/lib/python3.8/site-packages:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/map_loader build --build-base /ros_bridge/src/build/map_loader/build install --record /ros_bridge/src/build/map_loader/install.log --single-version-externally-managed

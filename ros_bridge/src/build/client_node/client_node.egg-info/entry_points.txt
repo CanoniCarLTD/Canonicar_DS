@@ -1,0 +1,3 @@
+[console_scripts]
+spawn_vehicle_node = client_node.spawn_vehicle:main
+

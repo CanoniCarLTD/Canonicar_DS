@@ -1,0 +1,18 @@
+running egg_info
+writing ../build/sensors_data/sensors_data.egg-info/PKG-INFO
+writing dependency_links to ../build/sensors_data/sensors_data.egg-info/dependency_links.txt
+writing entry points to ../build/sensors_data/sensors_data.egg-info/entry_points.txt
+writing requirements to ../build/sensors_data/sensors_data.egg-info/requires.txt
+writing top-level names to ../build/sensors_data/sensors_data.egg-info/top_level.txt
+reading manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+writing manifest file '../build/sensors_data/sensors_data.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../build/sensors_data/sensors_data.egg-info to /ros_bridge/src/install/sensors_data/lib/python3.8/site-packages/sensors_data-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/ros_bridge/src/build/sensors_data/install.log'

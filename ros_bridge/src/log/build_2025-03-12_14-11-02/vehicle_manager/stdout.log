@@ -1,0 +1,34 @@
+running egg_info
+creating ../build/vehicle_manager/vehicle_manager.egg-info
+writing ../build/vehicle_manager/vehicle_manager.egg-info/PKG-INFO
+writing dependency_links to ../build/vehicle_manager/vehicle_manager.egg-info/dependency_links.txt
+writing entry points to ../build/vehicle_manager/vehicle_manager.egg-info/entry_points.txt
+writing requirements to ../build/vehicle_manager/vehicle_manager.egg-info/requires.txt
+writing top-level names to ../build/vehicle_manager/vehicle_manager.egg-info/top_level.txt
+writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+reading manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+writing manifest file '../build/vehicle_manager/vehicle_manager.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /ros_bridge/src/build/vehicle_manager/build
+creating /ros_bridge/src/build/vehicle_manager/build/lib
+creating /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager
+copying vehicle_manager/__init__.py -> /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager
+copying vehicle_manager/vehicle_manager_node.py -> /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager
+running install
+running install_lib
+creating /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager
+copying /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager/__init__.py -> /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager
+copying /ros_bridge/src/build/vehicle_manager/build/lib/vehicle_manager/vehicle_manager_node.py -> /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager
+byte-compiling /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager/__init__.py to __init__.cpython-38.pyc
+byte-compiling /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager/vehicle_manager_node.py to vehicle_manager_node.cpython-38.pyc
+running install_data
+creating /ros_bridge/src/install/vehicle_manager/share/ament_index
+creating /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index
+creating /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index/packages
+copying resource/vehicle_manager -> /ros_bridge/src/install/vehicle_manager/share/ament_index/resource_index/packages
+copying package.xml -> /ros_bridge/src/install/vehicle_manager/share/vehicle_manager
+running install_egg_info
+Copying ../build/vehicle_manager/vehicle_manager.egg-info to /ros_bridge/src/install/vehicle_manager/lib/python3.8/site-packages/vehicle_manager-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/ros_bridge/src/build/vehicle_manager/install.log'

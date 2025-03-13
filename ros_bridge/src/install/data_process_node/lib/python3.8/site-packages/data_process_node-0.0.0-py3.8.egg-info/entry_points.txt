@@ -1,0 +1,3 @@
+[console_scripts]
+data_process = data_process_node.data_process:main
+

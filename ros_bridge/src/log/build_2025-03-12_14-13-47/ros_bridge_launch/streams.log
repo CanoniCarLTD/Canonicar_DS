@@ -1,0 +1,20 @@
+[0.771s] Invoking command in '/ros_bridge/src/ros_bridge_launch': AMENT_PREFIX_PATH=/ros_bridge/src/install/client_node:/ros_bridge/src/install/sensors_data:${AMENT_PREFIX_PATH} PYTHONPATH=/ros_bridge/src/build/ros_bridge_launch/prefix_override:/ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/ros_bridge_launch build --build-base /ros_bridge/src/build/ros_bridge_launch/build install --record /ros_bridge/src/build/ros_bridge_launch/install.log --single-version-externally-managed
+[0.945s] running egg_info
+[0.945s] writing ../build/ros_bridge_launch/ros_bridge_launch.egg-info/PKG-INFO
+[0.946s] writing dependency_links to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/dependency_links.txt
+[0.946s] writing entry points to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/entry_points.txt
+[0.946s] writing requirements to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/requires.txt
+[0.946s] writing top-level names to ../build/ros_bridge_launch/ros_bridge_launch.egg-info/top_level.txt
+[0.974s] reading manifest file '../build/ros_bridge_launch/ros_bridge_launch.egg-info/SOURCES.txt'
+[0.975s] writing manifest file '../build/ros_bridge_launch/ros_bridge_launch.egg-info/SOURCES.txt'
+[0.975s] running build
+[0.975s] running build_py
+[0.975s] running install
+[0.976s] running install_lib
+[0.977s] running install_data
+[0.979s] running install_egg_info
+[0.980s] removing '/ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages/ros_bridge_launch-0.0.0-py3.8.egg-info' (and everything under it)
+[0.980s] Copying ../build/ros_bridge_launch/ros_bridge_launch.egg-info to /ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages/ros_bridge_launch-0.0.0-py3.8.egg-info
+[0.981s] running install_scripts
+[0.996s] writing list of installed files to '/ros_bridge/src/build/ros_bridge_launch/install.log'
+[1.034s] Invoked command in '/ros_bridge/src/ros_bridge_launch' returned '0': AMENT_PREFIX_PATH=/ros_bridge/src/install/client_node:/ros_bridge/src/install/sensors_data:${AMENT_PREFIX_PATH} PYTHONPATH=/ros_bridge/src/build/ros_bridge_launch/prefix_override:/ros_bridge/src/install/ros_bridge_launch/lib/python3.8/site-packages:/ros_bridge/src/install/client_node/lib/python3.8/site-packages:/ros_bridge/src/install/sensors_data/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/ros_bridge_launch build --build-base /ros_bridge/src/build/ros_bridge_launch/build install --record /ros_bridge/src/build/ros_bridge_launch/install.log --single-version-externally-managed
