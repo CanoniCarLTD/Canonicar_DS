@@ -12,8 +12,8 @@ dotenv.load_dotenv()
 
 ETAI = os.getenv("ETAI_IP")
 KFIR = os.getenv("KFIR_IP")
-TRACK_LINE = os.getenv("TRACK_LINE")
-TRACK_XODR = os.getenv("TRACK_XODR")
+TRACK_LINE = "generated_tracks/normal/track3.line" #os.getenv("TRACK_LINE")
+TRACK_XODR = "generated_tracks/generatedTrack.xodr" #os.getenv("TRACK_XODR")
 CARLA_SERVER_PORT = 2000
 
 
@@ -229,7 +229,7 @@ def trackgen():
 
 try:
     trackgen()
-    client = carla.Client(KFIR, CARLA_SERVER_PORT)
+    client = carla.Client(ETAI, CARLA_SERVER_PORT)
     client.set_timeout(10.0)
     print("Connected to carla: ", client.get_server_version())
     print(f"Loading track: {TRACK_LINE}")
