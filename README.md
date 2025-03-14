@@ -64,7 +64,7 @@ docker compose up --build
 Once the Docker image is built, run the container from a second terminal in interactive mode to access the shell.
 
 ```bash
-docker exec -it carla_client /bin/bash
+docker exec -it carla_client_ds /bin/bash
 ```
 
 ### 3. Configure and Launch the CARLA Client Inside the Container
