@@ -12,8 +12,8 @@ dotenv.load_dotenv()
 
 ETAI = os.getenv("ETAI_IP")
 KFIR = os.getenv("KFIR_IP")
-TRACK_LINE = "generated_tracks/normal/track3.line" #os.getenv("TRACK_LINE")
-TRACK_XODR = "generated_tracks/generatedTrack.xodr" #os.getenv("TRACK_XODR")
+TRACK_LINE = "generated_tracks/normal/track3.line"  # os.getenv("TRACK_LINE")
+TRACK_XODR = "generated_tracks/generatedTrack.xodr"  # os.getenv("TRACK_XODR")
 CARLA_SERVER_PORT = 2000
 
 
@@ -134,14 +134,22 @@ def create_xodr_file(
         },
     )
     link = ET.SubElement(road, "link")
-    ET.SubElement(link, "predecessor", {"elementType": "road", "elementId": "1", "contactPoint": "end"})
-    ET.SubElement(link, "successor", {"elementType": "road", "elementId": "1", "contactPoint": "start"})
+    ET.SubElement(
+        link,
+        "predecessor",
+        {"elementType": "road", "elementId": "1", "contactPoint": "end"},
+    )
+    ET.SubElement(
+        link,
+        "successor",
+        {"elementType": "road", "elementId": "1", "contactPoint": "start"},
+    )
 
     # Add plan view with geometry
     plan_view = ET.SubElement(road, "planView")
     s = 0.0  # Cumulative road length
 
-    for i in range(len(centerline)-1):
+    for i in range(len(centerline) - 1):
         x, y, hdg = centerline[i]
         length = segment_lengths[i]
         geometry = ET.SubElement(
@@ -160,16 +168,16 @@ def create_xodr_file(
 
     x, y, hdg = centerline[0]
     ET.SubElement(
-            plan_view,
-            "geometry",
-            {
-                "s": f"{s:.5f}",
-                "x": f"{x:.5f}",
-                "y": f"{y:.5f}",
-                "hdg": f"{hdg:.5f}",
-                "length": f"{segment_lengths[0]:.5f}",
-            },
-        )
+        plan_view,
+        "geometry",
+        {
+            "s": f"{s:.5f}",
+            "x": f"{x:.5f}",
+            "y": f"{y:.5f}",
+            "hdg": f"{hdg:.5f}",
+            "length": f"{segment_lengths[0]:.5f}",
+        },
+    )
     s += length
 
     # Add lanes
@@ -180,10 +188,7 @@ def create_xodr_file(
     left_lane = ET.SubElement(
         left_element, "lane", {"id": "-1", "type": "driving", "level": "false"}
     )
-    left_link = ET.SubElement(
-        left_lane,
-        "link"
-    )
+    left_link = ET.SubElement(left_lane, "link")
     ET.SubElement(left_link, "predecessor", {"id": "-1"})
     ET.SubElement(left_link, "successor", {"id": "-1"})
     ET.SubElement(

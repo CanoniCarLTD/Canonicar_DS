@@ -15,37 +15,33 @@ from ament_index_python.packages import get_package_share_directory
 
 class DataCollector(Node):
     def __init__(self):
-        super().__init__('data_collector')
+        super().__init__("data_collector")
         try:
-            self.prev_gnss = None  # Store previous GNSS position for velocity calculation
+            self.prev_gnss = (
+                None  # Store previous GNSS position for velocity calculation
+            )
             self.prev_time = None  # Store timestamp
             self.speed_records = []  # Store speed values for average calculation
 
             # Add subscribers and publishers for data requests
             self.data_request_sub = self.create_subscription(
-                String,
-                '/carla/data_request',
-                self.handle_data_request,
-                10
-            )
-            
-            self.data_publisher = self.create_publisher(
-                String,
-                '/carla/collector_data',
-                10
+                String, "/carla/data_request", self.handle_data_request, 10
             )
 
-                    # Start to deploy vehicles after map is loaded
-            
+            self.data_publisher = self.create_publisher(
+                String, "/carla/collector_data", 10
+            )
+
+            # Start to deploy vehicles after map is loaded
+
             self.start_vehicle_manager = self.create_publisher(
-            String, 
-            '/start_vehicle_manager', 
-            10)
+                String, "/start_vehicle_manager", 10
+            )
             self.lap_subscription = self.create_subscription(
                 String,
-                '/lap_completed',  # Topic name for lap completion
+                "/lap_completed",  # Topic name for lap completion
                 self.lap_ending_callback,  # Callback function
-                10  # QoS
+                10,  # QoS
             )
 
         except Exception as e:
@@ -55,7 +51,9 @@ class DataCollector(Node):
         self.data_buffer = []  # List to store synchronized data
 
         # TODO different cars have different frontal areas, need to adjust per vehicle.
-        self.frontal_area = 2.2  # Default estimated frontal area in m² (can be adjusted)
+        self.frontal_area = (
+            2.2  # Default estimated frontal area in m² (can be adjusted)
+        )
         self.fuel_consumption = 0.0  # Total fuel consumption in liters
 
         self.throttle_sum = 0.0
@@ -77,7 +75,6 @@ class DataCollector(Node):
         self.start_vehicle_manager.publish(request_msg)
         self.get_logger().info("Data collector is ready to start the next lap.")
 
-
     def setup_subscribers(self):
         qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
         self.get_logger().info("Setting up subscribers...")
@@ -86,14 +83,16 @@ class DataCollector(Node):
         self.gnss_sub = Subscriber(self, NavSatFix, "/carla/gnss/gnss")
 
         self.physics_sub = Subscriber(self, Float32MultiArray, "/carla/vehicle/physics")
-        self.controller_sub = Subscriber(self, Float32MultiArray, "/carla/vehicle/control")
+        self.controller_sub = Subscriber(
+            self, Float32MultiArray, "/carla/vehicle/control"
+        )
 
         # Synchronizing IMU and GNSS Data
         self.ats = ApproximateTimeSynchronizer(
             [self.imu_sub, self.gnss_sub, self.physics_sub, self.controller_sub],
             queue_size=10,
             slop=0.05,
-            allow_headerless=True  # Enables processing of messages without timestamps
+            allow_headerless=True,  # Enables processing of messages without timestamps
         )
         self.ats.registerCallback(self.sync_callback)
         self.get_logger().info("Subscribers set up successfully.")
@@ -103,7 +102,9 @@ class DataCollector(Node):
         # self.get_logger().info("Synchronized callback triggered.")
         # self.get_logger().info(f"The physics mass {physics_msg.data[0]}, drag coef {physics_msg.data[1]}.")
 
-        processed_data = self.process_data(imu_msg, gnss_msg, physics_msg, controller_msg)
+        processed_data = self.process_data(
+            imu_msg, gnss_msg, physics_msg, controller_msg
+        )
         self.data_buffer.append(processed_data)
         # self.get_logger().info("Data appended to buffer.")
         # self.get_logger().info(f'Latest data: {self.get_latest_data()}')
@@ -120,7 +121,7 @@ class DataCollector(Node):
             "fuel_consumption": self.get_total_fuel_consumption(),
             "total_steering": self.steering_sum,
             "total_throttle": self.throttle_sum,
-            "total_brake": self.brake_sum
+            "total_brake": self.brake_sum,
         }
         # self.get_logger().info(f"Data:{data}")
         return data
@@ -134,17 +135,23 @@ class DataCollector(Node):
             imu_msg.linear_acceleration.z,
             imu_msg.angular_velocity.x,
             imu_msg.angular_velocity.y,
-            imu_msg.angular_velocity.z
+            imu_msg.angular_velocity.z,
         ]
         return imu_data
 
     def process_gnss(self, gnss_msg, physics_msg):
         """Process GNSS data and compute velocity."""
-        latitude, longitude, altitude = gnss_msg.latitude, gnss_msg.longitude, gnss_msg.altitude
+        latitude, longitude, altitude = (
+            gnss_msg.latitude,
+            gnss_msg.longitude,
+            gnss_msg.altitude,
+        )
 
         velocity = 0.0
         if self.prev_gnss is not None and self.prev_time is not None:
-            delta_time = (self.get_clock().now() - self.prev_time).nanoseconds / 1e9  # Convert to seconds
+            delta_time = (
+                self.get_clock().now() - self.prev_time
+            ).nanoseconds / 1e9  # Convert to seconds
             delta_lat = latitude - self.prev_gnss[0]
             delta_lon = longitude - self.prev_gnss[1]
 
@@ -156,7 +163,9 @@ class DataCollector(Node):
                 velocity = distance / delta_time  # Speed in m/s
                 km_per_hour = velocity * 3.6  # Convert to km/h
                 self.speed_records.append(km_per_hour)  # Store the computed speed
-                self.calculate_fuel_consumption(velocity, delta_time, physics_msg.data[0], physics_msg.data[1])
+                self.calculate_fuel_consumption(
+                    velocity, delta_time, physics_msg.data[0], physics_msg.data[1]
+                )
 
         self.prev_gnss = (latitude, longitude)
         self.prev_time = self.get_clock().now()
@@ -176,7 +185,9 @@ class DataCollector(Node):
 
         # Compute aerodynamic drag power
         air_density = 1.225  # kg/m³
-        aerodynamic_drag = 0.5 * air_density * drag_coefficient * self.frontal_area * (velocity ** 3)
+        aerodynamic_drag = (
+            0.5 * air_density * drag_coefficient * self.frontal_area * (velocity**3)
+        )
 
         # Compute rolling resistance (approximate)
         rolling_resistance_coefficient = 0.015
@@ -205,16 +216,16 @@ class DataCollector(Node):
         """Handle request for data from data_process_node"""
         if msg.data == "REQUEST_DATA":
             self.get_logger().info("Data request received, sending latest data")
-            
+
             # Get the latest processed data
             latest_data = self.get_latest_data()
-            
+
             if latest_data:
                 # Convert numpy arrays to lists for JSON serialization
                 for key, value in latest_data.items():
                     if isinstance(value, np.ndarray):
                         latest_data[key] = value.tolist()
-                
+
                 # Send data as JSON string
                 response = String()
                 response.data = json.dumps(latest_data)
@@ -236,5 +247,5 @@ def main(args=None):
         rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

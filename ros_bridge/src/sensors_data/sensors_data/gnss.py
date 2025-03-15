@@ -1,5 +1,6 @@
-from sensor_msgs.msg import NavSatFix ,NavSatStatus 
+from sensor_msgs.msg import NavSatFix, NavSatStatus
 from std_msgs.msg import Header
+
 
 def carla_gnss_to_ros_navsatfix(carla_gnss_data, header: Header) -> NavSatFix:
     """

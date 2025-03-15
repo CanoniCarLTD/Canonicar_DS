@@ -19,7 +19,7 @@ import openpyxl
 
 class DataProcessNode(Node):
     def __init__(self):
-        super().__init__('data_process')
+        super().__init__("data_process")
         self.get_logger().info("DataProcess Node initialized.")
 
         # Track start point and lap status
@@ -32,27 +32,23 @@ class DataProcessNode(Node):
         self.vehicle_type = None
         self.current_lap_vehicle_data = []
 
-        self.location_subscriber = self.create_subscription(Float32MultiArray, '/carla/vehicle/location', self.location_callback, 10)
+        self.location_subscriber = self.create_subscription(
+            Float32MultiArray, "/carla/vehicle/location", self.location_callback, 10
+        )
 
         # For communicating with data_collector
         self.get_data_publisher = self.create_publisher(
-            String,
-            '/carla/data_request',
-            10)
+            String, "/carla/data_request", 10
+        )
         self.data_subscriber = self.create_subscription(
-            String,
-            '/carla/collector_data',
-            self.data_callback,
-            10)
+            String, "/carla/collector_data", self.data_callback, 10
+        )
         self.lap_completed_publisher = self.create_publisher(
-            String,
-            '/lap_completed',
-            10)
+            String, "/lap_completed", 10
+        )
         self.vehicle_type_subscriber = self.create_subscription(
-            String,
-            '/carla/vehicle/type',
-            self.vehicle_type_callback,
-            10)
+            String, "/carla/vehicle/type", self.vehicle_type_callback, 10
+        )
 
         self.get_logger().info("DataProcess Node setup complete")
 
@@ -70,7 +66,9 @@ class DataProcessNode(Node):
             # Initialize lap timer
             self.lap_start_time = self.get_clock().now()
             self.get_logger().info(f"Lap timer started at: {self.lap_start_time}")
-            time.sleep(1)  # Wait for a second before starting to avoid false lap completion
+            time.sleep(
+                1
+            )  # Wait for a second before starting to avoid false lap completion
 
             return
 
@@ -91,7 +89,7 @@ class DataProcessNode(Node):
 
     def calculate_distance(self, point1, point2):
         if point1 is None or point2 is None:
-            return float('inf')
+            return float("inf")
         return math.sqrt(sum((p1 - p2) ** 2 for p1, p2 in zip(point1, point2)))
 
     def request_collector_data(self):
@@ -129,7 +127,7 @@ class DataProcessNode(Node):
 
         try:
             # Create data directory if it doesn't exist
-            data_dir = os.path.join(os.path.expanduser('/ros_bridge/src'), 'carla_data')
+            data_dir = os.path.join(os.path.expanduser("/ros_bridge/src"), "carla_data")
             os.makedirs(data_dir, exist_ok=True)
 
             # Use a fixed filename instead of timestamp-based name
@@ -140,41 +138,45 @@ class DataProcessNode(Node):
 
             # Extract metrics from the lap
             entry = {
-                'lap': lap_entry['lap_number'],
-                'average_speed': lap_entry['average_speed'],
-                'fuel_consumption': lap_entry['fuel_consumption'],
-                'total_steering': lap_entry['total_steering'],
-                'total_throttle': lap_entry['total_throttle'],
-                'total_brake': lap_entry['total_brake']
+                "lap": lap_entry["lap_number"],
+                "average_speed": lap_entry["average_speed"],
+                "fuel_consumption": lap_entry["fuel_consumption"],
+                "total_steering": lap_entry["total_steering"],
+                "total_throttle": lap_entry["total_throttle"],
+                "total_brake": lap_entry["total_brake"],
             }
 
             # Add IMU data (acceleration, angular velocity)
-            if 'imu' in lap_entry:
-                imu = lap_entry['imu']
-                entry.update({
-                    'accel_x': imu[0],
-                    'accel_y': imu[1],
-                    'accel_z': imu[2],
-                    'ang_vel_x': imu[3],
-                    'ang_vel_y': imu[4],
-                    'ang_vel_z': imu[5]
-                })
+            if "imu" in lap_entry:
+                imu = lap_entry["imu"]
+                entry.update(
+                    {
+                        "accel_x": imu[0],
+                        "accel_y": imu[1],
+                        "accel_z": imu[2],
+                        "ang_vel_x": imu[3],
+                        "ang_vel_y": imu[4],
+                        "ang_vel_z": imu[5],
+                    }
+                )
 
             # Add GNSS data if available
-            if 'gnss' in lap_entry:
-                gnss = lap_entry['gnss']
-                entry.update({
-                    'latitude': gnss[0],
-                    'longitude': gnss[1],
-                    'altitude': gnss[2],
-                    'velocity': gnss[3]
-                })
+            if "gnss" in lap_entry:
+                gnss = lap_entry["gnss"]
+                entry.update(
+                    {
+                        "latitude": gnss[0],
+                        "longitude": gnss[1],
+                        "altitude": gnss[2],
+                        "velocity": gnss[3],
+                    }
+                )
 
-            entry['lap time'] = float(self.lap_time.nanoseconds) / 1e9
+            entry["lap time"] = float(self.lap_time.nanoseconds) / 1e9
 
             # Add timestamp for reference
-            entry['timestamp'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            entry['vehicle_type'] = self.vehicle_type
+            entry["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            entry["vehicle_type"] = self.vehicle_type
 
             # Create DataFrame for new lap data
             df_new = pd.DataFrame([entry])  # Just one row for the new lap
@@ -185,7 +187,9 @@ class DataProcessNode(Node):
                 df_existing = pd.read_excel(filename)
                 df_combined = pd.concat([df_existing, df_new], ignore_index=True)
                 df_combined.to_excel(filename, index=False)
-                self.get_logger().info(f"Appended lap {lap_entry['lap_number']} data to {filename}")
+                self.get_logger().info(
+                    f"Appended lap {lap_entry['lap_number']} data to {filename}"
+                )
             else:
                 # Create new file with first lap data
                 df_new.to_excel(filename, index=False)
@@ -194,6 +198,7 @@ class DataProcessNode(Node):
         except Exception as e:
             self.get_logger().error(f"Error saving data to Excel: {e}")
             import traceback
+
             self.get_logger().error(traceback.format_exc())
 
 
@@ -209,5 +214,5 @@ def main(args=None):
         rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
