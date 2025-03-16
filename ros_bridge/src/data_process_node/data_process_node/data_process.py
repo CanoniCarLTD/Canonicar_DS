@@ -22,7 +22,6 @@ class DataProcessNode(Node):
         super().__init__("data_process")
         self.get_logger().info("DataProcess Node initialized.")
 
-        # Track start point and lap status
         self.start_point = None
         self.lap_completed = False
         self.lap_count = 0
@@ -36,7 +35,6 @@ class DataProcessNode(Node):
             Float32MultiArray, "/carla/vehicle/location", self.location_callback, 10
         )
 
-        # For communicating with data_collector
         self.get_data_publisher = self.create_publisher(
             String, "/carla/data_request", 10
         )
@@ -58,22 +56,17 @@ class DataProcessNode(Node):
     def location_callback(self, msg):
         """Process vehicle location data"""
         self.vehicle_location = msg.data
-        # self.get_logger().info(f"Vehicle location: {self.vehicle_location}")
         if self.start_point is None:
             self.start_point = self.vehicle_location
             self.get_logger().info(f"Start position recorded: {self.start_point}")
 
-            # Initialize lap timer
             self.lap_start_time = self.get_clock().now()
             self.get_logger().info(f"Lap timer started at: {self.lap_start_time}")
-            time.sleep(
-                1
-            )  # Wait for a second before starting to avoid false lap completion
+            time.sleep(1)
 
             return
 
         distance = self.calculate_distance(self.start_point, self.vehicle_location)
-        # self.get_logger().info(f"Distance from start: {distance:.2f} m, start point: {self.start_point} , current position: {self.vehicle_location}")
         if distance < 1:
             if not self.lap_completed:
                 self.lap_completed = True
@@ -107,11 +100,9 @@ class DataProcessNode(Node):
                 data_dict = json.loads(msg.data)
                 self.get_logger().info(f"Received data for lap {self.lap_count}")
 
-                # Add lap number to data
                 data_dict["lap_number"] = self.lap_count
 
                 self.lap_data.append(data_dict)
-                # Save data after each lap
                 self.save_data_to_excel()
 
         except json.JSONDecodeError as e:
@@ -126,17 +117,13 @@ class DataProcessNode(Node):
             return
 
         try:
-            # Create data directory if it doesn't exist
             data_dir = os.path.join(os.path.expanduser("/ros_bridge/src"), "carla_data")
             os.makedirs(data_dir, exist_ok=True)
 
-            # Use a fixed filename instead of timestamp-based name
-            filename = os.path.join(data_dir, "lap_data3.xlsx")
+            filename = os.path.join(data_dir, "lap_dataDemo.xlsx")
 
-            # Process only the most recent lap data
             lap_entry = self.lap_data[-1]
 
-            # Extract metrics from the lap
             entry = {
                 "lap": lap_entry["lap_number"],
                 "average_speed": lap_entry["average_speed"],
@@ -146,7 +133,6 @@ class DataProcessNode(Node):
                 "total_brake": lap_entry["total_brake"],
             }
 
-            # Add IMU data (acceleration, angular velocity)
             if "imu" in lap_entry:
                 imu = lap_entry["imu"]
                 entry.update(
@@ -160,7 +146,6 @@ class DataProcessNode(Node):
                     }
                 )
 
-            # Add GNSS data if available
             if "gnss" in lap_entry:
                 gnss = lap_entry["gnss"]
                 entry.update(
@@ -174,16 +159,12 @@ class DataProcessNode(Node):
 
             entry["lap time"] = float(self.lap_time.nanoseconds) / 1e9
 
-            # Add timestamp for reference
             entry["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             entry["vehicle_type"] = self.vehicle_type
 
-            # Create DataFrame for new lap data
-            df_new = pd.DataFrame([entry])  # Just one row for the new lap
+            df_new = pd.DataFrame([entry])
 
-            # Check if file already exists
             if os.path.exists(filename):
-                # Load existing data and append new lap data
                 df_existing = pd.read_excel(filename)
                 df_combined = pd.concat([df_existing, df_new], ignore_index=True)
                 df_combined.to_excel(filename, index=False)
@@ -191,7 +172,6 @@ class DataProcessNode(Node):
                     f"Appended lap {lap_entry['lap_number']} data to {filename}"
                 )
             else:
-                # Create new file with first lap data
                 df_new.to_excel(filename, index=False)
                 self.get_logger().info(f"Created new lap data file at {filename}")
 
