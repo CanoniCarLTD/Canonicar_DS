@@ -1,7 +1,5 @@
 # Canonicar_DS
-# Canonicar
-
-# CARLA ROS 2 Client Setup
+## CARLA ROS 2 Client Setup
 
 This repository contains the setup and instructions to run the CARLA simulator with ROS 2 integration using Docker. Follow the steps below to get your environment up and running.
 
