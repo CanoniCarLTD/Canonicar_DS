@@ -22,7 +22,7 @@ def generate_tracks(config: dict, generated_track_path):
     n_regions = track_cfg["n_regions"] + adj.get("n_regions", 0)
     min_bound = track_cfg["min_bound"] + adj.get("min_bound", 0.0)
     max_bound = track_cfg["max_bound"] + adj.get("max_bound", 0.0)
-    
+
     # Convert mode if it's a string, otherwise use as is.
     mode_val = track_cfg["mode"]
     mode = Mode[mode_val.upper()] if isinstance(mode_val, str) else mode_val
@@ -56,12 +56,14 @@ def generate_tracks(config: dict, generated_track_path):
                 "max_cone_outward_offset",
             ]:
                 if attr in adj:
-                    setattr(track_gen, f"_{attr}", getattr(track_gen, f"_{attr}") + adj[attr])
+                    setattr(
+                        track_gen,
+                        f"_{attr}",
+                        getattr(track_gen, f"_{attr}") + adj[attr],
+                    )
             track_gen.create_track()
         except Exception as e:
             print(f"Error encountered: {e}. Retrying...")
-
-
 
 
 def main(args=None):

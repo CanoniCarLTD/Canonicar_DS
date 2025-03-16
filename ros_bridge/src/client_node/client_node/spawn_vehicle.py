@@ -9,6 +9,7 @@ from ament_index_python.packages import get_package_share_directory
 import time
 from std_msgs.msg import String
 from rclpy.qos import QoSProfile, ReliabilityPolicy
+
 # For ROS2 messages
 from sensor_msgs.msg import Image, PointCloud2, Imu, NavSatFix
 from std_msgs.msg import Header
@@ -22,19 +23,26 @@ from sensors_data import (
     carla_gnss_to_ros_navsatfix,
 )
 
+
 class SpawnVehicleNode(Node):
     def __init__(self):
-        super().__init__('spawn_vehicle_node')
+        super().__init__("spawn_vehicle_node")
 
-        self.declare_parameter('host', '')
-        self.declare_parameter('port', 2000)
-        self.declare_parameter('vehicle_type', "vehicle.tesla.model3")  # Default vehicle type
+        self.declare_parameter("host", "")
+        self.declare_parameter("port", 2000)
+        self.declare_parameter(
+            "vehicle_type", "vehicle.tesla.model3"
+        )  # Default vehicle type
 
-        self.host = self.get_parameter('host').value
-        self.port = self.get_parameter('port').value
-        self.vehicle_type = self.get_parameter('vehicle_type').value  # Read vehicle type
+        self.host = self.get_parameter("host").value
+        self.port = self.get_parameter("port").value
+        self.vehicle_type = self.get_parameter(
+            "vehicle_type"
+        ).value  # Read vehicle type
 
-        self.get_logger().info(f"Connecting to CARLA server at {self.host}:{self.port} with vehicle {self.vehicle_type}")
+        self.get_logger().info(
+            f"Connecting to CARLA server at {self.host}:{self.port} with vehicle {self.vehicle_type}"
+        )
 
         try:
             self.client = Client(self.host, 2000)
@@ -52,75 +60,165 @@ class SpawnVehicleNode(Node):
         self.sensors_publishers = {}
 
         self.sensor_config_file = os.path.join(
-            get_package_share_directory('client_node'), 'client_node', 'sensors_config.json'
+            get_package_share_directory("client_node"),
+            "client_node",
+            "sensors_config.json",
         )
 
-        self.physics_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/physics', 10) # To data_collector node
+        self.physics_publisher = self.create_publisher(
+            Float32MultiArray, "/carla/vehicle/physics", 10
+        )  # To data_collector node
         self.timer = self.create_timer(0.1, self.publish_vehicle_physics)
-        self.control_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/control', 10) # To data_collector node
+        self.control_publisher = self.create_publisher(
+            Float32MultiArray, "/carla/vehicle/control", 10
+        )  # To data_collector node
         self.timer = self.create_timer(0.1, self.publish_vehicle_control)
-        self.location_publisher = self.create_publisher(Float32MultiArray, '/carla/vehicle/location', 10) # To data_process node
+        self.location_publisher = self.create_publisher(
+            Float32MultiArray, "/carla/vehicle/location", 10
+        )  # To data_process node
         self.timer = self.create_timer(0.1, self.publish_vehicle_location)
-        self.vehicle_type_publisher = self.create_publisher(String, '/carla/vehicle/type', 10) # To data_collector node       
-        
+        self.vehicle_type_publisher = self.create_publisher(
+            String, "/carla/vehicle/type", 10
+        )  # To data_collector node
+
         self.vehicle = None
 
         self.lap_subscription = self.create_subscription(
             String,
-            '/lap_completed',  # Topic name for lap completion
+            "/lap_completed",  # Topic name for lap completion
             self.lap_callback,  # Callback function
-            10  # QoS
+            10,  # QoS
         )
         self.start_subscription = self.create_subscription(
-            String,
-            '/start_vehicle_manager',
-            self.start_driving,
-            10  # QoS
+            String, "/start_vehicle_manager", self.start_driving, 10  # QoS
         )
         self.data_collector_ready = False
         self.map_loaded = False
-        
+
         self.vehicle_types = [
-    "vehicle.audi.a2",
-    # "vehicle.chevrolet.impala",
-    "vehicle.citroen.c3",
-    "vehicle.micro.microlino",
-    "vehicle.dodge.charger_police",
-    "vehicle.audi.tt",
-    "vehicle.jeep.wrangler_rubicon",
-    "vehicle.mercedes.coupe",
-    "vehicle.mercedes.coupe_2020",
-    "vehicle.harley-davidson.low_rider",
-    "vehicle.dodge.charger_2020",
-    "vehicle.ford.ambulance",
-    "vehicle.lincoln.mkz_2020",
-    "vehicle.mini.cooper_s_2021",
-    "vehicle.toyota.prius",
-    "vehicle.ford.crown",
-    "vehicle.carlamotors.carlacola",
-    "vehicle.vespa.zx125",
-    "vehicle.nissan.patrol_2021",
-    "vehicle.dodge.charger_police_2020",
-    "vehicle.mercedes.sprinter",
-    "vehicle.audi.etron",
-    "vehicle.seat.leon",
-    "vehicle.volkswagen.t2_2021",
-    "vehicle.tesla.cybertruck",
-    "vehicle.lincoln.mkz_2017",
-    "vehicle.ford.mustang",
-    "vehicle.carlamotors.firetruck",
-    "vehicle.volkswagen.t2",
-    "vehicle.tesla.model3",
-    "vehicle.diamondback.century",
-    "vehicle.gazelle.omafiets",
-    "vehicle.bmw.grandtourer",
-    "vehicle.bh.crossbike",
-    "vehicle.kawasaki.ninja",
-    "vehicle.yamaha.yzf",
-    "vehicle.nissan.patrol",
-    "vehicle.nissan.micra",
-    "vehicle.mini.cooper_s"
-]
+            "vehicle.yamaha.yzf",
+            "vehicle.carlamotors.carlacola",
+            "vehicle.mini.cooper_s_2021",
+            "vehicle.mercedes.sprinter",
+            "vehicle.ford.ambulance",
+            "vehicle.kawasaki.ninja",
+            "vehicle.carlamotors.firetruck",
+            "vehicle.ford.mustang",
+            "vehicle.volkswagen.t2_2021",
+            "vehicle.vespa.zx125",
+            "vehicle.lincoln.mkz_2020",
+            "vehicle.toyota.prius",
+            "vehicle.harley-davidson.low_rider",
+            "vehicle.audi.tt",
+            "vehicle.dodge.charger_2020",
+            "vehicle.nissan.patrol_2021",
+            "vehicle.tesla.cybertruck",
+        ]
+
+        # self.vehicle_types = [
+        # "vehicle.toyota.prius",
+        # "vehicle.vespa.zx125",
+        # "vehicle.vespa.zx125",
+        # "vehicle.ford.ambulance",
+        # "vehicle.volkswagen.t2_2021",
+        # "vehicle.ford.mustang",
+        # "vehicle.mercedes.sprinter",
+        # "vehicle.mini.cooper_s_2021",
+        # "vehicle.carlamotors.carlacola",
+        # "vehicle.audi.tt",
+        # "vehicle.harley-davidson.low_rider",
+        # "vehicle.mercedes.sprinter",
+        # "vehicle.mini.cooper_s_2021",
+        # "vehicle.lincoln.mkz_2020",
+        # "vehicle.yamaha.yzf",
+        # "vehicle.dodge.charger_2020",
+        # "vehicle.volkswagen.t2_2021",
+        # "vehicle.kawasaki.ninja",
+        # "vehicle.lincoln.mkz_2020",
+        # "vehicle.volkswagen.t2_2021",
+        # "vehicle.mercedes.sprinter",
+        # "vehicle.carlamotors.carlacola",
+        # "vehicle.dodge.charger_2020",
+        # "vehicle.carlamotors.carlacola",
+        # "vehicle.nissan.patrol_2021",
+        # "vehicle.mercedes.sprinter",
+        # "vehicle.ford.mustang",
+        # "vehicle.volkswagen.t2_2021",
+        # "vehicle.dodge.charger_2020",
+        # "vehicle.nissan.patrol_2021",
+        # "vehicle.carlamotors.firetruck",
+        # "vehicle.lincoln.mkz_2020",
+        # "vehicle.toyota.prius",
+        # "vehicle.mini.cooper_s_2021",
+        # "vehicle.audi.tt",
+        # "vehicle.mini.cooper_s_2021",
+        # "vehicle.lincoln.mkz_2020",
+        # "vehicle.audi.tt",
+        # "vehicle.vespa.zx125",
+        # "vehicle.carlamotors.carlacola",
+        # "vehicle.harley-davidson.low_rider",
+        # "vehicle.harley-davidson.low_rider",
+        # "vehicle.ford.mustang",
+        # "vehicle.nissan.patrol_2021",
+        # "vehicle.harley-davidson.low_rider",
+        # "vehicle.dodge.charger_2020",
+        # "vehicle.carlamotors.firetruck",
+        # "vehicle.ford.ambulance",
+        # "vehicle.ford.ambulance",
+        # "vehicle.kawasaki.ninja",
+        # "vehicle.vespa.zx125",
+        # "vehicle.carlamotors.firetruck",
+        # "vehicle.yamaha.yzf",
+        # "vehicle.nissan.patrol_2021",
+        # "vehicle.audi.tt",
+        # "vehicle.toyota.prius",
+        # "vehicle.toyota.prius",
+        # "vehicle.carlamotors.firetruck",
+        # "vehicle.ford.ambulance",
+        # "vehicle.ford.mustang",
+        # "vehicle.tesle.cybertruck",
+        # ]
+
+        # self.vehicle_types = [
+        #     "vehicle.audi.a2",
+        #     "vehicle.citroen.c3",
+        #     "vehicle.micro.microlino",
+        #     "vehicle.dodge.charger_police",
+        #     "vehicle.audi.tt",
+        #     "vehicle.jeep.wrangler_rubicon",
+        #     "vehicle.mercedes.coupe",
+        #     "vehicle.mercedes.coupe_2020",
+        #     "vehicle.harley-davidson.low_rider",
+        #     "vehicle.dodge.charger_2020",
+        #     "vehicle.ford.ambulance",
+        #     "vehicle.lincoln.mkz_2020",
+        #     "vehicle.mini.cooper_s_2021",
+        #     "vehicle.toyota.prius",
+        #     "vehicle.ford.crown",
+        #     "vehicle.carlamotors.carlacola",
+        #     "vehicle.vespa.zx125",
+        #     "vehicle.nissan.patrol_2021",
+        #     "vehicle.dodge.charger_police_2020",
+        #     "vehicle.mercedes.sprinter",
+        #     "vehicle.audi.etron",
+        #     "vehicle.seat.leon",
+        #     "vehicle.volkswagen.t2_2021",
+        #     "vehicle.tesla.cybertruck",
+        #     "vehicle.lincoln.mkz_2017",
+        #     "vehicle.ford.mustang",
+        #     "vehicle.carlamotors.firetruck",
+        #     "vehicle.volkswagen.t2",
+        #     "vehicle.diamondback.century",
+        #     "vehicle.gazelle.omafiets",
+        #     "vehicle.bmw.grandtourer",
+        #     "vehicle.bh.crossbike",
+        #     "vehicle.kawasaki.ninja",
+        #     "vehicle.yamaha.yzf",
+        #     "vehicle.nissan.patrol",
+        #     "vehicle.nissan.micra",
+        #     "vehicle.mini.cooper_s"
+        #     ]
+
         self.current_vehicle_index = 0  # To keep track of which vehicle to spawn next
         self.spawn_objects_from_config()
 
@@ -133,14 +231,18 @@ class SpawnVehicleNode(Node):
         if self.map_loaded and self.data_collector_ready:
             self.get_logger().info("Starting to drive")
             self.spawn_objects_from_config()
-        self.get_logger().info(f"Is map laoded?: {self.map_loaded}, Is data collector ready {self.data_collector_ready}")
+        self.get_logger().info(
+            f"Is map loaded?: {self.map_loaded}, Is data collector ready {self.data_collector_ready}"
+        )
 
     def lap_callback(self, msg):
         self.data_collector_ready = False
         self.get_logger().info(f"Lap completed! Destroy vehicle {self.vehicle_type}")
         self.destroy_actors()
         self.vehicle_type = self.vehicle_types[self.current_vehicle_index]
-        self.current_vehicle_index = (self.current_vehicle_index + 1) % len(self.vehicle_types)     
+        self.current_vehicle_index = (self.current_vehicle_index + 1) % len(
+            self.vehicle_types
+        )
 
     def publish_vehicle_location(self):
         if self.vehicle is not None and self.vehicle.is_alive:
@@ -173,7 +275,7 @@ class SpawnVehicleNode(Node):
 
         try:
             # Load vehicle configuration
-            with open(self.sensor_config_file, 'r') as f:
+            with open(self.sensor_config_file, "r") as f:
                 config = json.load(f)
                 self.get_logger().info("Loaded JSON config")
 
@@ -193,7 +295,9 @@ class SpawnVehicleNode(Node):
             vehicle_bp = blueprint_library.find(vehicle_type)
 
             carla_map = self.world.get_map()
-            waypoints = carla_map.generate_waypoints(2.0)  # 1-meter interval for precision
+            waypoints = carla_map.generate_waypoints(
+                2.0
+            )  # 1-meter interval for precision
 
             road_ids = set(wp.road_id for wp in waypoints)
             if len(road_ids) == 0:
@@ -204,23 +308,34 @@ class SpawnVehicleNode(Node):
 
             # Find lanes on this road (prioritize negative lane IDs for left-side driving)
             lane_ids = set(wp.lane_id for wp in waypoints if wp.road_id == main_road_id)
-            driving_lane_id = next((id for id in lane_ids if id < 0), next((id for id in lane_ids if id > 0), 0))
+            driving_lane_id = next(
+                (id for id in lane_ids if id < 0),
+                next((id for id in lane_ids if id > 0), 0),
+            )
 
             if driving_lane_id == 0:
                 self.get_logger().error("No valid driving lane found!")
                 return
 
             # Find waypoints specifically for this road and lane
-            road_waypoints = [wp for wp in waypoints if wp.road_id == main_road_id and wp.lane_id == driving_lane_id]
+            road_waypoints = [
+                wp
+                for wp in waypoints
+                if wp.road_id == main_road_id and wp.lane_id == driving_lane_id
+            ]
             if not road_waypoints:
-                self.get_logger().error("No waypoints found for the selected road/lane!")
+                self.get_logger().error(
+                    "No waypoints found for the selected road/lane!"
+                )
                 return
 
             # Sort waypoints by s-value to ensure they're in order along the road
             road_waypoints.sort(key=lambda wp: wp.s)
 
             spawn_waypoint = road_waypoints[3]
-            self.get_logger().info(f"Using waypoint at s={spawn_waypoint.s:.1f} for spawn")
+            self.get_logger().info(
+                f"Using waypoint at s={spawn_waypoint.s:.1f} for spawn"
+            )
 
             # Create the transform and raise it slightly to prevent ground collision
             spawn_transform = spawn_waypoint.transform
@@ -231,17 +346,15 @@ class SpawnVehicleNode(Node):
             if not self.vehicle:
                 self.get_logger().error("Failed to spawn at waypoint")
                 return
-            
+
             location = self.vehicle.get_location()
             self.get_logger().info(f"Spawned vehicle at {location}")
 
             # Add collision sensor for debugging
-            collision_bp = blueprint_library.find('sensor.other.collision')
+            collision_bp = blueprint_library.find("sensor.other.collision")
             if collision_bp:
                 collision_sensor = self.world.spawn_actor(
-                    collision_bp,
-                    carla.Transform(),
-                    attach_to=self.vehicle
+                    collision_bp, carla.Transform(), attach_to=self.vehicle
                 )
                 collision_sensor.listen(lambda event: self._on_collision(event))
                 self.spawned_sensors.append(collision_sensor)
@@ -270,6 +383,7 @@ class SpawnVehicleNode(Node):
         except Exception as e:
             self.get_logger().error(f"Error spawning vehicle: {e}")
             import traceback
+
             self.get_logger().error(traceback.format_exc())
 
     def _on_collision(self, event):
@@ -302,7 +416,9 @@ class SpawnVehicleNode(Node):
 
                 sensor_bp = blueprint_library.find(sensor_type)
                 if not sensor_bp:
-                    self.get_logger().error(f"Sensor blueprint '{sensor_type}' not found. Skipping.")
+                    self.get_logger().error(
+                        f"Sensor blueprint '{sensor_type}' not found. Skipping."
+                    )
                     continue
 
                 for attribute, value in sensor_def.items():
@@ -334,17 +450,23 @@ class SpawnVehicleNode(Node):
                     ),
                 )
 
-                sensor_actor = self.world.try_spawn_actor(sensor_bp, spawn_transform, attach_to=self.vehicle)
+                sensor_actor = self.world.try_spawn_actor(
+                    sensor_bp, spawn_transform, attach_to=self.vehicle
+                )
                 if sensor_actor is None:
                     self.get_logger().error(f"Failed to spawn sensor '{sensor_id}'.")
                     continue
                 else:
                     self.spawned_sensors.append(sensor_actor)
 
-                self.get_logger().info(f"Spawned sensor '{sensor_id}' ({sensor_type}) at {spawn_transform}")
+                self.get_logger().info(
+                    f"Spawned sensor '{sensor_id}' ({sensor_type}) at {spawn_transform}"
+                )
 
                 # Create a ROS2 publisher for this sensor
-                topic_name, msg_type = self.get_ros_topic_and_type(sensor_type, sensor_id)
+                topic_name, msg_type = self.get_ros_topic_and_type(
+                    sensor_type, sensor_id
+                )
                 if topic_name and msg_type:
                     publisher = self.create_publisher(msg_type, topic_name, 10)
                     self.sensors_publishers[sensor_actor.id] = {
@@ -369,7 +491,9 @@ class SpawnVehicleNode(Node):
                 # Handle attached pseudo-actors if any
                 attached_objects = sensor_def.get("attached_objects", [])
                 for ao in attached_objects:
-                    self.get_logger().info(f"Detected attached object (pseudo) {ao['type']} with id '{ao['id']}'")
+                    self.get_logger().info(
+                        f"Detected attached object (pseudo) {ao['type']} with id '{ao['id']}'"
+                    )
                     # Implement handling of attached objects if necessary.
 
             except Exception as e:
@@ -455,6 +579,7 @@ class SpawnVehicleNode(Node):
         except Exception as e:
             self.get_logger().error(f"Error during actor cleanup: {e}")
             import traceback
+
             self.get_logger().error(traceback.format_exc())
 
 
@@ -471,5 +596,5 @@ def main(args=None):
         rclpy.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
