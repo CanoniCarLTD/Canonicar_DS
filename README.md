@@ -40,8 +40,8 @@ Before you begin, ensure you have the following installed on your machine:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/CanoniCarLTD/Canonicar.git
-   cd Canonicar
+   git clone https://github.com/CanoniCarLTD/Canonicar_DS.git
+   cd Canonicar_DS
    ```
 
 
